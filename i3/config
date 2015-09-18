@@ -172,7 +172,6 @@ bindsym $mod+Shift+r mode "resize"
 # finds out, if available)
 bar {
     status_command i3status
-    position top
 }
 
 exec $base_dir/startup.sh

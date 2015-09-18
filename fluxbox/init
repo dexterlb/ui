@@ -27,19 +27,19 @@ session.screen0.toolbar.widthPercent:	100
 session.screen0.toolbar.alpha:	255
 session.screen0.toolbar.autoHide:	false
 session.screen0.toolbar.layer:	Dock
-session.screen0.toolbar.placement:	BottomCenter
+session.screen0.toolbar.placement:	TopCenter
 session.screen0.toolbar.tools:	prevworkspace, workspacename, nextworkspace, iconbar, systemtray, clock
 session.screen0.toolbar.visible:	true
 session.screen0.toolbar.onhead:	1
 session.screen0.focusNewWindows:	true
 session.screen0.clickRaises:	true
 session.screen0.maxDisableResize:	false
-session.screen0.windowMenu:	/home/human/.fluxbox/windowmenu
+session.screen0.windowMenu:	~/.fluxbox/windowmenu
 session.screen0.allowRemoteActions:	false
 session.screen0.windowPlacement:	RowMinOverlapPlacement
 session.screen0.workspacewarping:	true
 session.screen0.fullMaximization:	false
-session.screen0.workspaceNames:	Workspace 1,Workspace 2,Workspace 3,Workspace 4,
+session.screen0.workspaceNames:	1,2,3,4,5,6,7,8,9
 session.screen0.focusSameHead:	false
 session.screen0.menuDelay:	200
 session.screen0.noFocusWhileTypingDelay:	0
@@ -47,7 +47,7 @@ session.screen0.defaultDeco:	NORMAL
 session.screen0.focusModel:	ClickFocus
 session.screen0.showwindowposition:	false
 session.screen0.maxIgnoreIncrement:	true
-session.screen0.workspaces:	4
+session.screen0.workspaces:	9
 session.screen0.rowPlacementDirection:	LeftToRight
 session.screen0.strftimeFormat:	%k:%M
 session.screen0.tooltipDelay:	500
@@ -58,9 +58,9 @@ session.screen0.tabFocusModel:	ClickToTabFocus
 session.screen0.colPlacementDirection:	TopToBottom
 session.screen0.opaqueMove:	true
 session.tabsAttachArea:	Window
-session.slitlistFile:	/home/human/.fluxbox/slitlist
+session.slitlistFile:	~/.fluxbox/slitlist
 session.forcePseudoTransparency:	false
-session.styleOverlay:	/home/human/.fluxbox/overlay
+session.styleOverlay:	~/.fluxbox/overlay
 session.menuFile:	~/.fluxbox/menu
 session.cacheMax:	200
 session.keyFile:	~/.fluxbox/keys
@@ -68,7 +68,7 @@ session.colorsPerChannel:	4
 session.tabPadding:	0
 session.autoRaiseDelay:	250
 session.cacheLife:	5
-session.appsFile:	/home/human/.fluxbox/apps
+session.appsFile:	~/.fluxbox/apps
 session.ignoreBorder:	false
 session.styleFile:	/usr/share/fluxbox/styles/bloe
 session.doubleClickInterval:	250
