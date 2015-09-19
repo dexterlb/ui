@@ -9,5 +9,5 @@ class PanelVisual:
     font = '-*-droid sans mono-*-*-*-*-15-*-*-*-*-*-*-*'
     char_width = 9
 
-    background_image = 'images/baked/panelbg_notif_0_0_1920_1080.xpm'
-    logo_image = 'images/baked/logo.xpm'
+    background_image = '../images/baked/panelbg_notif_0_0_1920_1080.xpm'
+    logo_image = '../images/baked/logo.xpm'

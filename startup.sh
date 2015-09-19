@@ -20,4 +20,9 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     "${cdir}/klayout.sh"    # keyboard layout settings
 } &
 
+{
+    cd "${cdir}"/info
+    ./info.py
+} &
+
 parcellite -n &>/dev/null &         # clipboard manager

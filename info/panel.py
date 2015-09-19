@@ -155,7 +155,8 @@ class Panel:
         '-fg', PanelVisual.default,
         '-fn', PanelVisual.font,
         '-ta', 'l',
-        '-h', str(PanelVisual.height)
+        '-h', str(PanelVisual.height),
+        '-dock'
     ]
 
     def __init__(self):
