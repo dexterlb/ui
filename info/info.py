@@ -21,7 +21,8 @@ class WindowManager:
         return self._i3
 
     def loop(self, events):
-        def workspace_event(connection, event):
+        def workspace_event(connection=None, event=None):
+            events.put(PanelStrip('current_window').text(':)'))
             self.refresh_workspaces(events)
         self.i3.on('workspace::focus', workspace_event)
 
@@ -33,7 +34,7 @@ class WindowManager:
             self.set_mode(events, event.change)
         self.i3.on('mode', mode_event)
 
-        self.set_mode(events, 'default')
+        workspace_event()
         self.refresh_workspaces(events)
         self.i3.main()
 
@@ -49,14 +50,13 @@ class WindowManager:
                 background = PanelVisual.urgent
             info.text(workspace.name, colour, background).text(' ')
 
-        events.put(PanelStrip('current_window').text(':)'))
         events.put(info)
 
     def set_window(self, events, window_container):
-        if window_container.urgent:
-            self.refresh_workspaces(events)
+        print(window_container.__dict__)
         if window_container.focused:
             events.put(PanelStrip('current_window').text(window_container.name))
+        self.refresh_workspaces(events)
 
     def set_mode(self, events, mode):
         if mode == 'default':
