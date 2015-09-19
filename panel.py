@@ -100,7 +100,7 @@ class PanelStrip:
         self.items.append(Colour(colour))
         return self
 
-    def background(self, colour):
+    def background(self, colour=None):
         self.items.append(Background(colour))
         return self
 
@@ -173,7 +173,8 @@ class Panel:
             PanelStrip().image(PanelVisual.background_image, background=True),
             PanelStrip().image(PanelVisual.logo_image).move(15),
             self.items['workspaces'],
-            separator
+            self.items['mode'],
+            separator,
         ], PanelStrip())
         right = sum([
             PanelStrip().text("foobdafhsdjhfkjsdahfkjsdhakjfhsdjkhfkjdshjakfhsajkdhfjksadhfjksdahfjkhsdjkfhjksadhfjkshadjkfhsdkarbaz"),

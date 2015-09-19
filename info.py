@@ -29,6 +29,11 @@ class WindowManager:
             self.set_window(events, event.container)
         self.i3.on('window', window_event)
 
+        def mode_event(connection, event):
+            self.set_mode(events, event.change)
+        self.i3.on('mode', mode_event)
+
+        self.set_mode(events, 'default')
         self.refresh_workspaces(events)
         self.i3.main()
 
@@ -52,6 +57,14 @@ class WindowManager:
             self.refresh_workspaces(events)
         if window_container.focused:
             events.put(PanelStrip('current_window').text(window_container.name))
+
+    def set_mode(self, events, mode):
+        if mode == 'default':
+            events.put(PanelStrip('mode'))
+        else:
+            events.put(PanelStrip('mode').text(
+                mode, background=PanelVisual.urgent
+            ))
 
 
 class EventLoop:
