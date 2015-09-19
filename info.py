@@ -3,8 +3,10 @@
 import i3ipc
 import threading
 import subprocess
+from functools import lru_cache
 from collections import defaultdict
 from queue import Queue
+
 
 class PanelVisual:
     default = '#efebe5'
@@ -13,20 +15,51 @@ class PanelVisual:
     urgent = '#ff0000'
 
     height = 24
+
     font = '-*-droid sans mono-*-*-*-*-15-*-*-*-*-*-*-*'
+    char_width = 9
+
+    background_image = 'images/baked/panelbg_notif_0_0_1920_1080.xpm'
+    logo_image = 'images/baked/logo.xpm'
+
+class Raster:
+    @staticmethod
+    def text_width(text):
+        if PanelVisual.__dict__.get('char_width'):
+            return PanelVisual.char_width * len(text)
+        return int(subprocess.check_output(['text_width', PanelVisual.font, text]))
+
+    @staticmethod
+    @lru_cache()
+    def image_size(image_file):
+        print("opening: " + image_file + '.size')
+        with open(image_file + '.size', 'r') as f:
+            width, height = f.read().split()
+        return (int(width), int(height))
+
+    @classmethod
+    def image_width(cls, image_file):
+        return cls.image_size(image_file)[0]
+
+
 
 class PanelItem:
     def __init__(self, key=None):
         self.key = key
+        self.length = 0
         self.panel_data = ''
 
     def __add__(self, other):
-        return PanelItem().raw(self.panel_data).raw(other.panel_data)
+        item = PanelItem().raw(self.panel_data).raw(other.panel_data)
+        item.length = self.length + other.length
+        return item
 
     def move(self, offset):
+        self.length += offset
         return self.raw('^p(' + str(offset) + ')')
 
     def moveTo(self, position):
+        self.length = position
         return self.raw('^pa(' + str(position) + ')')
 
     def escape(self, string):
@@ -49,6 +82,8 @@ class PanelItem:
         return self
 
     def text(self, text, colour=None, background=None):
+        self.length += Raster.text_width(text)
+
         if (colour):
             self.colour(colour)
         if (background):
@@ -60,6 +95,15 @@ class PanelItem:
             self.colour()
         if (background):
             self.background()
+        return self
+
+    def image(self, image_file, background=False):
+        width = Raster.image_width(image_file)
+        self.length += width
+        self.raw('^i(' + image_file + ')')
+        if background:
+            self.raw('^ib(1)')
+            self.move(-width)
         return self
 
     def data(self):
@@ -126,13 +170,15 @@ class Panel:
 
     def render(self):
         panel = sum([
+            PanelItem().image(PanelVisual.background_image, background=True),
+            PanelItem().image(PanelVisual.logo_image),
             self.items['workspaces'],
             PanelItem().text('| '),
             self.items['current_window']
         ], PanelItem())
 
         self.dzen.stdin.write(panel.data())
-        print(panel.data())
+        print(panel.data(), panel.length)
         self.dzen.stdin.flush()
 
     def start(self):
