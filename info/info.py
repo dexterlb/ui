@@ -53,7 +53,6 @@ class WindowManager:
         events.put(info)
 
     def set_window(self, events, window_container):
-        print(window_container.__dict__)
         if window_container.focused:
             events.put(PanelStrip('current_window').text(window_container.name))
         self.refresh_workspaces(events)
