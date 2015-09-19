@@ -42,15 +42,18 @@ class EventLoop:
         self.window_manager = WindowManager()
         self.events = Queue()
 
-    def start_thread(self, loop, args):
-        thread = threading.Thread(target=loop, args=args)
+    def start_thread(self, loop):
+        thread = threading.Thread(
+            target=loop,
+            kwargs={'events': self.events}
+        )
         thread.daemon = True
         thread.start()
         return thread
 
     def loop(self):
         self.window_manager_thread = self.start_thread(
-            self.window_manager.loop, (self.events,)
+            self.window_manager.loop
         )
 
         while True:
