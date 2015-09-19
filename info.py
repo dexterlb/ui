@@ -6,6 +6,15 @@ import subprocess
 from collections import defaultdict
 from queue import Queue
 
+class PanelVisual:
+    default = '#efebe5'
+    semiactive = '#7cd4fc'
+    active = '#ebac54'
+    urgent = '#ff0000'
+
+    height = 24
+    font = '-*-droid sans mono-*-*-*-*-15-*-*-*-*-*-*-*'
+
 class PanelItem:
     def __init__(self, key=None):
         self.key = key
@@ -14,15 +23,43 @@ class PanelItem:
     def __add__(self, other):
         return PanelItem().raw(self.panel_data).raw(other.panel_data)
 
+    def move(self, offset):
+        return self.raw('^p(' + str(offset) + ')')
+
+    def moveTo(self, position):
+        return self.raw('^pa(' + str(position) + ')')
+
     def escape(self, string):
         return string.replace('^', '^^')
+
+    def colour(self, colour=None):
+        if colour:
+            return self.raw('^fg(' + colour + ')')
+        else:
+            return self.raw('^fg()')
+
+    def background(self, colour=None):
+        if colour:
+            return self.raw('^bg(' + colour + ')^ib(0)')
+        else:
+            return self.raw('^bg()^ib(1)')
 
     def raw(self, data):
         self.panel_data += data
         return self
 
-    def text(self, text):
+    def text(self, text, colour=None, background=None):
+        if (colour):
+            self.colour(colour)
+        if (background):
+            self.background(background)
+
         self.panel_data += self.escape(text)
+
+        if (colour):
+            self.colour()
+        if (background):
+            self.background()
         return self
 
     def data(self):
@@ -53,14 +90,32 @@ class WindowManager:
     def refresh_workspaces(self, events):
         info = PanelItem('workspaces')
         for workspace in self.i3.get_workspaces():
-            info.text(workspace.name + ' ')
+            colour, background = None, None
+            if workspace.visible:
+                colour = PanelVisual.semiactive
+            if workspace.focused:
+                colour = PanelVisual.active
+            if workspace.urgent:
+                background = PanelVisual.urgent
+            info.text(workspace.name, colour, background).text(' ')
+
+        events.put(PanelItem('current_window').text(':)'))
         events.put(info)
 
     def set_window(self, events, window_container):
-        events.put(PanelItem('current_window').text(window_container.name))
+        if window_container.urgent:
+            self.refresh_workspaces(events)
+        if window_container.focused:
+            events.put(PanelItem('current_window').text(window_container.name))
 
 class Panel:
-    dzen_executable = ['dzen2']
+    dzen_executable = [
+        'dzen2',
+        '-fg', PanelVisual.default,
+        '-fn', PanelVisual.font,
+        '-ta', 'l',
+        '-h', str(PanelVisual.height)
+    ]
 
     def __init__(self):
         self.items = defaultdict(PanelItem)
@@ -77,6 +132,7 @@ class Panel:
         ], PanelItem())
 
         self.dzen.stdin.write(panel.data())
+        print(panel.data())
         self.dzen.stdin.flush()
 
     def start(self):
@@ -101,7 +157,7 @@ class EventLoop:
         return thread
 
     def process_event(self, event):
-        if event.panel_data:
+        if isinstance(event, PanelItem):
             self.panel.update(event)
 
     def loop(self):
