@@ -33,17 +33,32 @@ class Text:
         self.text = text
         self.width = Raster.text_width(text)
 
-    def trim(self, width):
-        if width < 0:
-            self.update('')
-            return False
+    def trimmed(self, width):
+        separator = PanelStrip().text(' ~ ')
+
+        if width < separator.width:
+            return PanelStrip()
 
         if PanelVisual.char_width:
-            self.update(self.text[:(width // PanelVisual.char_width)])
+            side_chars = (width - separator.width) // (2 * PanelVisual.char_width)
+            left_text = self.text[:side_chars]
+            print(len(self.text), side_chars)
+            right_text = self.text[len(self.text) - side_chars:]
         else:
-            while Raster.text_width(text) > width:
-                self.update(self.text[:(len(self.text) // 2)])
-        return True
+            left_text = self.text
+            right_text = self.text
+            fragment_width = (width - separator.width) // 2
+
+            while Raster.text_width(left_text) > fragment_width:
+                left_text = left_text[len(left_text) - 1:]
+            while Raster.text_width(right_text) > fragment_width:
+                right_text = right_text[1:]
+
+        return (
+            PanelStrip().text(left_text)
+            + separator
+            + PanelStrip().text(right_text)
+        )
 
     @property
     def panel_data(self):
@@ -113,17 +128,25 @@ class PanelStrip:
             self.items.append(Image(image_file))
         return self
 
-    def set_width(self, width):
-        if self.width == width:
+    def trim(self, width):
+        if width >= self.width:
             return self
+
+        for index in range(len(self.items) - 1, -1, -1):
+            item = self.items[index]
+            if 'trimmed' in dir(item):
+                self.items[index:index + 1] = item.trimmed(
+                    width - self.width + item.width
+                ).items
+
+        return self
+
+    def set_width(self, width):
+        self.trim(width)
+
         if self.width < width:
             return self.move(width - self.width)
 
-        for item in reversed(self.items):
-            if 'trim' in dir(item):
-                print('trimming ' + item.panel_data + ' to ' + str(width - self.width + item.width))
-                if item.trim(width - self.width + item.width):
-                    return self.move(width - self.width)
         return self
 
 class Panel:
