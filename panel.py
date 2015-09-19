@@ -34,7 +34,7 @@ class Text:
         self.width = Raster.text_width(text)
 
     def trimmed(self, width):
-        separator = PanelStrip().text(' ~ ')
+        separator = PanelStrip().text('~/~', colour=PanelVisual.semiactive)
 
         if width < separator.width:
             return PanelStrip()
@@ -167,18 +167,26 @@ class Panel:
         self.render()
 
     def render(self):
+        separator = PanelStrip().text('| ', colour=PanelVisual.active)
+
         left = sum([
             PanelStrip().image(PanelVisual.background_image, background=True),
             PanelStrip().image(PanelVisual.logo_image).move(15),
             self.items['workspaces'],
-            PanelStrip().text('| ')
+            separator
         ], PanelStrip())
         right = sum([
             PanelStrip().text("foobdafhsdjhfkjsdahfkjsdhakjfhsdjkhfkjdshjakfhsajkdhfjksadhfjksdahfjkhsdjkfhjksadhfjkshadjkfhsdkarbaz"),
         ], PanelStrip())
         mid = sum([
             self.items['current_window']
-        ], PanelStrip()).set_width(self.width - left.width - right.width)
+        ], PanelStrip())
+
+        if mid.width > self.width - left.width - right.width:
+            mid.set_width(self.width - left.width - right.width - separator.width)
+            mid += separator
+        else:
+            mid.set_width(self.width - left.width - right.width)
 
         panel = left + mid + right
 
