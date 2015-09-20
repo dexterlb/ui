@@ -116,6 +116,9 @@ class Battery:
     def current_charge(self):
         return int(self.read_file('charge_now')) // 1000
 
+    def current(self):  # current as in mA
+        return int(self.read_file('current_now')) // 1000
+
     def percent(self):
         return int(self.read_file('capacity'))
 
@@ -140,6 +143,8 @@ class SystemInfo:
                 info.text(self.battery.status() + ': ')
                 info.text(str(self.battery.current_charge()) + 'mAh')
                 info.text(' (' + str(self.battery.percent()) + '%)')
+                if self.battery.status() == 'Discharging':
+                    info.text(' at ' + str(self.battery.current()) + 'mA')
             info.text(' cpu: ' + cpu + ' ram: ' + self.ram())
             info.text(' load: ' + self.load())
             events.put(info)
