@@ -2,7 +2,9 @@
 
 import i3ipc
 import threading
+import os
 import subprocess
+import psutil
 from collections import defaultdict
 from queue import Queue
 from datetime import datetime
@@ -85,6 +87,26 @@ class Clock:
             events.put(PanelStrip('clock').text(time))
             sleep(60 - datetime.now().second)    # wait until next minute
 
+class SystemInfo:
+    def load(self):
+        return "%.1f" % os.getloadavg()[0]
+
+    def ram(self):
+        return str(int(psutil.virtual_memory().percent)) + '%'
+
+    def cpu(self, wait_time):
+        return str(int(psutil.cpu_percent(interval=wait_time))) + '%'
+
+    def loop(self, events):
+        cpu = '--'
+        while True:
+            info = PanelStrip('system_info')
+            info.text('cpu: ' + cpu + ' ram: ' + self.ram())
+            info.text(' load: ' + self.load())
+            events.put(info)
+
+            cpu = self.cpu(5)   # wait 5 seconds and measure cpu
+
 
 class EventLoop:
     def __init__(self):
@@ -92,6 +114,7 @@ class EventLoop:
         self.events = Queue()
         self.panel = Panel()
         self.clock = Clock()
+        self.system_info = SystemInfo()
 
     def start_thread(self, loop):
         thread = threading.Thread(
@@ -112,6 +135,9 @@ class EventLoop:
         )
         self.clock_thread = self.start_thread(
             self.clock.loop
+        )
+        self.clock_thread = self.start_thread(
+            self.system_info.loop
         )
 
         self.panel.start()

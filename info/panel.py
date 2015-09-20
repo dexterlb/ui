@@ -179,7 +179,9 @@ class Panel:
         ], PanelStrip())
         right = sum([
             PanelStrip().text("foobarbaz "),
-            self.items['clock']
+            self.items['clock'],
+            PanelStrip().text(' '),
+            self.items['system_info']
         ], PanelStrip())
         mid = sum([
             self.items['current_window']
