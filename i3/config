@@ -211,8 +211,9 @@ bindsym $mod+Control+period nop send music_home
 
 bindsym $mod+Escape exec $base_dir/session_menu.sh
 
+bindsym --release Print exec $base_dir/screenshot.sh full
+bindsym --release Shift+Print exec $base_dir/screenshot.sh region
+bindsym --release Control+Print exec $base_dir/screenshot.sh window
 bindsym $mod+Print exec $base_dir/screenshot.sh
-bindsym $mod+Shift+Print exec $base_dir/screenshot.sh region
-bindsym $mod+Contol+Print exec $base_dir/screenshot.sh menu
 
 exec $base_dir/startup.sh
