@@ -12,6 +12,9 @@ class Music:
         self.password = password
         self.mpd = MPDClient()
 
+    def clone(self):
+        return Music(self.hostname, self.port, self.password)
+
     def connect(self):
         self.mpd.connect(self.hostname, self.port)
         if self.password:
@@ -35,23 +38,40 @@ class Music:
 
         return info.text(' vol: ' + status['volume'])
 
+    def safe_call(self, method, *args, **kwargs):
+        try:
+            return getattr(self.mpd, method)(*args, **kwargs)
+        except MPDError:
+            try:
+                self.connect()
+                return getattr(self.mpd, method)(*args, **kwargs)
+            except MPDError:
+                return None
+
     def play(self):
-        self.mpd.play()
+        return self.safe_call('play')
 
     def pause(self):
-        self.mpd.pause()
+        return self.safe_call('pause')
 
     def stop(self):
-        self.mpd.stop()
+        return self.safe_call('stop')
 
     def seek(self, position):
-        self.mpd.seekcur(position)
+        return self.safe_call('seekcur', position)
 
     def next(self):
-        self.mpd.next()
+        return self.safe_call('next')
 
     def previous(self):
-        self.mpd.previous()
+        return self.safe_call('previous')
+
+    def volume(self, volume, relative=False):
+        if relative:
+            old_volume = int(self.safe_call('status')['volume'])
+            return self.safe_call('setvol', old_volume + volume)
+        else:
+            return self.safe_call('setvol', volume)
 
     def loop(self, events):
         while True:

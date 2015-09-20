@@ -16,6 +16,10 @@ from raster import Raster
 from music import Music
 from panel import PanelStrip, Panel
 
+class UserCommand:
+    def __init__(self, command):
+        self.command = command
+
 class WindowManager:
     def __init__(self):
         self._i3 = None
@@ -42,6 +46,12 @@ class WindowManager:
         def mode_event(connection, event):
             self.set_mode(events, event.change)
         self.i3.on('mode', mode_event)
+
+        def command_event(connection, event):
+            prefix = 'nop send '
+            if event.binding.command.startswith(prefix):
+                events.put(UserCommand(event.binding.command[len(prefix):]))
+        self.i3.on('binding', command_event)
 
         workspace_event()
         self.refresh_workspaces(events)
@@ -151,6 +161,7 @@ class EventLoop:
             self.music = Music()
         else:
             self.music = Music(**mpd_settings)
+        self.music_controller = self.music.clone()
 
         self.system_info = SystemInfo()
 
@@ -166,6 +177,24 @@ class EventLoop:
     def process_event(self, event):
         if isinstance(event, PanelStrip):
             self.panel.update(event)
+        elif isinstance(event, UserCommand):
+            command = event.command.split()
+            if command[0] == 'music_pause':
+                self.music_controller.pause()
+            elif command[0] == 'music_stop':
+                self.music_controller.stop()
+            elif command[0] == 'music_home':
+                self.music_controller.seek(0)
+            elif command[0] == 'music_next':
+                self.music_controller.next()
+            elif command[0] == 'music_previous':
+                self.music_controller.previous()
+            elif command[0] == 'music_volume':
+                if command[1].startswith('+') or command[1].startswith('-'):
+                    is_relative = True
+                else:
+                    is_relative = False
+                self.music_controller.volume(int(command[1]), is_relative)
 
     def loop(self):
         self.window_manager_thread = self.start_thread(
