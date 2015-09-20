@@ -20,7 +20,10 @@ class WindowManager:
             self._i3 = i3ipc.Connection()
         return self._i3
 
-    def loop(self, events):
+    def reconnect(self):
+        self._i3 = None
+
+    def single_instance_loop(self, events):
         def workspace_event(connection=None, event=None):
             events.put(PanelStrip('current_window').text(':)'))
             self.refresh_workspaces(events)
@@ -36,7 +39,15 @@ class WindowManager:
 
         workspace_event()
         self.refresh_workspaces(events)
+
         self.i3.main()
+
+    def loop(self, events):
+        while True:
+            try:
+                self.single_instance_loop(events)
+            except (FileNotFoundError, BrokenPipeError):
+                self.reconnect()
 
     def refresh_workspaces(self, events):
         info = PanelStrip('workspaces')
