@@ -6,6 +6,9 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 {
     # X settings
     xsetroot -cursor_name left_ptr
+
+    feh --bg-fill "${wallpaper}"
+
     export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
     # unclutter &             # autohide pointer
     xset b off              # speakerectomy
@@ -15,14 +18,14 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     # xset m 3/1 0            # mouse acceleration and speed
     xhost local:boinc       # allow boinc user to use GPU
 
-    feh --bg-fill "${wallpaper}"
-
     "${cdir}/klayout.sh"    # keyboard layout settings
+
+    rofi ${rofi_common[@]} -key-run Mod4+p -key-window Mod4+space
 } &
 
 {
     cd "${cdir}"/info
-    ./info.py
+    ./info.py &> /tmp/info.py.log
 } &
 
 parcellite -n &>/dev/null &         # clipboard manager
