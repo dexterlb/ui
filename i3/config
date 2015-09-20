@@ -209,4 +209,10 @@ bindsym --release --whole-window $mod+Control+button5 nop send music_volume -1
 bindsym --release --whole-window $mod+Control+button4 nop send music_volume +1
 bindsym $mod+Control+period nop send music_home
 
+bindsym $mod+Escape exec $base_dir/session_menu.sh
+
+bindsym $mod+Print exec $base_dir/screenshot.sh
+bindsym $mod+Shift+Print exec $base_dir/screenshot.sh region
+bindsym $mod+Contol+Print exec $base_dir/screenshot.sh menu
+
 exec $base_dir/startup.sh
