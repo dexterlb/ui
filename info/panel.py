@@ -178,7 +178,8 @@ class Panel:
             separator,
         ], PanelStrip())
         right = sum([
-            PanelStrip().text("foobdafhsdjhfkjsdahfkjsdhakjfhsdjkhfkjdshjakfhsajkdhfjksadhfjksdahfjkhsdjkfhjksadhfjkshadjkfhsdkarbaz"),
+            PanelStrip().text("foobarbaz "),
+            self.items['clock']
         ], PanelStrip())
         mid = sum([
             self.items['current_window']

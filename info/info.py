@@ -5,6 +5,8 @@ import threading
 import subprocess
 from collections import defaultdict
 from queue import Queue
+from datetime import datetime
+from time import sleep
 
 from visual import PanelVisual
 from raster import Raster
@@ -76,12 +78,20 @@ class WindowManager:
                 mode, background=PanelVisual.urgent
             ))
 
+class Clock:
+    def loop(self, events):
+        while True:
+            time = datetime.now().strftime('%a %h %Y-%m-%d %H:%M')
+            events.put(PanelStrip('clock').text(time))
+            sleep(60 - datetime.now().second)    # wait until next minute
+
 
 class EventLoop:
     def __init__(self):
         self.window_manager = WindowManager()
         self.events = Queue()
         self.panel = Panel()
+        self.clock = Clock()
 
     def start_thread(self, loop):
         thread = threading.Thread(
@@ -99,6 +109,9 @@ class EventLoop:
     def loop(self):
         self.window_manager_thread = self.start_thread(
             self.window_manager.loop
+        )
+        self.clock_thread = self.start_thread(
+            self.clock.loop
         )
 
         self.panel.start()
