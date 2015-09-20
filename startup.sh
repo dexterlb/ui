@@ -7,7 +7,7 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     # X settings
     xsetroot -cursor_name left_ptr
 
-    feh --bg-fill "${wallpaper}"
+    feh --bg-fill "${generated_dir}"/wallpaper.jpg
 
     export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
     # unclutter &             # autohide pointer

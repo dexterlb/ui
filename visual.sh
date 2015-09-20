@@ -1,6 +1,14 @@
 #!/bin/zsh
 cdir="$(readlink -f "$(dirname "$0")")"
+. "${cdir}/screen.sh"
 
-wallpaper="${cdir}/images/meat.jpg"
+image_dir="${cdir}/images"
+generated_dir="${cdir}/images/generated"
+
+wallpaper="${image_dir}/meat.jpg"
+logo="${image_dir}/logo.png"
 
 rofi_common=(-font 'Droid Sans Mono 12')
+
+panel_height=24
+panel_width="${screen_width}"

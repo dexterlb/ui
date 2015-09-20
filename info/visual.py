@@ -1,3 +1,8 @@
+import os
+
+class Visual:
+    image_path = '../images/generated'
+
 class PanelVisual:
     default = '#efebe5'
     semiactive = '#7cd4fc'
@@ -9,5 +14,5 @@ class PanelVisual:
     font = '-*-droid sans mono-*-*-*-*-15-*-*-*-*-*-*-*'
     char_width = 9
 
-    background_image = '../images/baked/panelbg_notif_0_0_1920_1080.xpm'
-    logo_image = '../images/baked/logo.xpm'
+    background_image = os.path.join(Visual.image_path, 'panel_background.xpm')
+    logo_image = os.path.join(Visual.image_path, 'logo.xpm')
