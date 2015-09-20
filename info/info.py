@@ -87,7 +87,30 @@ class Clock:
             events.put(PanelStrip('clock').text(time))
             sleep(60 - datetime.now().second)    # wait until next minute
 
+class Battery:
+    def __init__(self, battery_folder):
+        self.battery_folder = battery_folder
+
+    def read_file(self, filename):
+        with open(os.path.join(self.battery_folder, filename), 'r') as f:
+            return f.read().strip()
+
+    def status(self):
+        return self.read_file('status')
+
+    def exists(self):
+        return (int(self.read_file('present')) == 1)
+
+    def current_charge(self):
+        return int(self.read_file('charge_now')) // 1000
+
+    def percent(self):
+        return int(self.read_file('capacity'))
+
 class SystemInfo:
+    def __init__(self):
+        self.battery = Battery('/sys/class/power_supply/BAT1')
+
     def load(self):
         return "%.1f" % os.getloadavg()[0]
 
@@ -101,7 +124,11 @@ class SystemInfo:
         cpu = '--'
         while True:
             info = PanelStrip('system_info')
-            info.text('cpu: ' + cpu + ' ram: ' + self.ram())
+            if self.battery.exists():
+                info.text(self.battery.status() + ': ')
+                info.text(str(self.battery.current_charge()) + 'mAh')
+                info.text(' (' + str(self.battery.percent()) + '%)')
+            info.text(' cpu: ' + cpu + ' ram: ' + self.ram())
             info.text(' load: ' + self.load())
             events.put(info)
 
@@ -136,7 +163,7 @@ class EventLoop:
         self.clock_thread = self.start_thread(
             self.clock.loop
         )
-        self.clock_thread = self.start_thread(
+        self.system_info_thread = self.start_thread(
             self.system_info.loop
         )
 
