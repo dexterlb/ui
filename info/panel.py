@@ -34,7 +34,7 @@ class Text:
         self.width = Raster.text_width(text)
 
     def trimmed(self, width):
-        separator = PanelStrip().text('~/~', colour=PanelVisual.semiactive)
+        separator = PanelStrip().image(PanelVisual.logo_image)
 
         if width < separator.width:
             return PanelStrip()
@@ -83,6 +83,7 @@ class PanelStrip:
     def __add__(self, other):
         strip = PanelStrip()
         strip.items = self.items + other.items
+        strip.key = self.key
         return strip
 
     def data(self):
@@ -178,7 +179,8 @@ class Panel:
             separator,
         ], PanelStrip())
         right = sum([
-            PanelStrip().text("foobarbaz "),
+            self.items['music'],
+            PanelStrip().text(' >>> '),
             self.items['clock'],
             PanelStrip().text(' '),
             self.items['system_info']

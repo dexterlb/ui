@@ -5,6 +5,7 @@ import threading
 import os
 import subprocess
 import psutil
+import json
 from collections import defaultdict
 from queue import Queue
 from datetime import datetime
@@ -12,6 +13,7 @@ from time import sleep
 
 from visual import PanelVisual
 from raster import Raster
+from music import Music
 from panel import PanelStrip, Panel
 
 class WindowManager:
@@ -141,6 +143,15 @@ class EventLoop:
         self.events = Queue()
         self.panel = Panel()
         self.clock = Clock()
+
+        try:
+            with open(os.path.expanduser('~/.mpd_data.conf'), 'r') as f:
+                mpd_settings = json.load(f)
+        except FileNotFoundError:
+            self.music = Music()
+        else:
+            self.music = Music(**mpd_settings)
+
         self.system_info = SystemInfo()
 
     def start_thread(self, loop):
@@ -165,6 +176,9 @@ class EventLoop:
         )
         self.system_info_thread = self.start_thread(
             self.system_info.loop
+        )
+        self.music_thread = self.start_thread(
+            self.music.loop
         )
 
         self.panel.start()
