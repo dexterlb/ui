@@ -20,7 +20,7 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 
     "${cdir}/klayout.sh"    # keyboard layout settings
 
-    rofi ${rofi_common[@]} -key-run Mod4+p -key-window Mod4+space
+    rofi ${rofi_common[@]} -key-run Mod4+p -key-window Mod4+Tab
 } &
 
 {
