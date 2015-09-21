@@ -7,6 +7,7 @@ generated_dir="${cdir}/images/generated"
 
 wallpaper="${image_dir}/meat.jpg"
 logo="${image_dir}/logo.png"
+icons_dir="${image_dir}/icons"
 
 rofi_common=(-font 'Droid Sans Mono 12')
 

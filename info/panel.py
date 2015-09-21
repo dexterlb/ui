@@ -1,31 +1,36 @@
+import os
 from collections import defaultdict
 import subprocess
 
 from raster import Raster
 from visual import PanelVisual
 
-class Colour:
+class PanelItem:
+    def panel_data(self, overlay_suffix=None):
+        return self.data
+
+class Colour(PanelItem):
     width = 0
     def __init__(self, colour=None):
         if colour:
-            self.panel_data = '^fg(' + str(colour) + ')'
+            self.data = '^fg(' + str(colour) + ')'
         else:
-            self.panel_data = '^fg()'
+            self.data = '^fg()'
 
-class Background:
+class Background(PanelItem):
     width = 0
     def __init__(self, colour=None):
         if colour:
-            self.panel_data = '^bg(' + colour + ')^ib(0)'
+            self.data = '^bg(' + colour + ')^ib(0)'
         else:
-            self.panel_data = '^bg()^ib(1)'
+            self.data = '^bg()^ib(1)'
 
-class Move:
+class Move(PanelItem):
     def __init__(self, offset):
         self.width = offset
-        self.panel_data = '^p(' + str(offset) + ')'
+        self.data = '^p(' + str(offset) + ')'
 
-class Text:
+class Text(PanelItem):
     def __init__(self, text):
         self.update(text)
 
@@ -34,7 +39,7 @@ class Text:
         self.width = Raster.text_width(text)
 
     def trimmed(self, width):
-        separator = PanelStrip().image(PanelVisual.logo_image)
+        separator = PanelStrip().icon('split')
 
         if width < separator.width:
             return PanelStrip()
@@ -60,22 +65,33 @@ class Text:
             + PanelStrip().text(right_text)
         )
 
-    @property
-    def panel_data(self):
+    def panel_data(self, overlay_suffix=None):
         return self.text.replace('^', '^^')
 
-class Image:
-    def __init__(self, image_file, ignore_background=False):
+class Image(PanelItem):
+    def __init__(self, image_file, ignore_background=False, overlay=False):
         self.width = Raster.image_width(image_file)
-        self.panel_data = '^i(' + image_file + ')'
-        if ignore_background:
-            self.panel_data += '^ib(1)'
+        self.image_file = image_file
+        self.ignore_background = ignore_background
+        self.overlay = overlay
+
+    def panel_data(self, overlay_suffix):
+        if self.overlay:
+            overlay_file = self.image_file + overlay_suffix
+            data = '^i(' + overlay_file + ')'
+        else:
+            data = '^i(' + self.image_file + ')'
+        if self.ignore_background:
+            data += '^ib(1)'
+        return data
 
 
 class PanelStrip:
     def __init__(self, key=None):
         self.key = key
         self.items = []
+        self.background_image_file = None
+        self.background_position = 0
 
     def __repr__(self):
         return '<PanelStrip ' + str(self.key) + '>'
@@ -84,10 +100,26 @@ class PanelStrip:
         strip = PanelStrip()
         strip.items = self.items + other.items
         strip.key = self.key
+        if other.background_image_file:
+            strip.background_image_file = other.background_image_file
+            strip.background_position = self.width + other.background_position
+        else:
+            strip.background_image_file = self.background_image_file
+            strip.background_position = self.background_position
         return strip
 
     def data(self):
-        return (''.join(item.panel_data for item in self.items) + "\n").encode()
+        data = ''
+        position = 0
+        for item in self.items:
+            overlay_suffix = (
+                '.overlay/' + os.path.basename(self.background_image_file) +
+                '.' + str(position) + '.xpm'
+            )
+            data += item.panel_data(overlay_suffix)
+            position += item.width
+
+        return (data + "\n").encode()
 
     @property
     def width(self):
@@ -120,14 +152,24 @@ class PanelStrip:
 
         return self
 
-    def image(self, image_file, background=False):
+    def image(self, image_file, background=False, overlay=False):
         if background:
             image = Image(image_file, ignore_background=True)
+
+            self.background_image_file = image_file
+            self.background_position = self.width
+
             self.items.append(image)
             self.move(-image.width)
         else:
-            self.items.append(Image(image_file))
+            self.items.append(Image(image_file, overlay=overlay))
         return self
+
+    def icon(self, icon_name):
+        return self.image(
+            os.path.join(PanelVisual.icon_path, icon_name + '.xpm'),
+            overlay=True
+        )
 
     def trim(self, width):
         if width >= self.width:

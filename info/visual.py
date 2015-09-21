@@ -16,3 +16,5 @@ class PanelVisual:
 
     background_image = os.path.join(Visual.image_path, 'panel_background.xpm')
     logo_image = os.path.join(Visual.image_path, 'logo.xpm')
+
+    icon_path = os.path.join(Visual.image_path, 'icons')
