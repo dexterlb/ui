@@ -14,7 +14,12 @@ class PanelVisual:
     font = '-*-droid sans mono-*-*-*-*-15-*-*-*-*-*-*-*'
     char_width = 9
 
-    background_image = os.path.join(Visual.image_path, 'panel_background.xpm')
+    background_image = os.path.join(
+        Visual.image_path, 'panel_background.xpm'
+    )
+    background_image_notification = os.path.join(
+        Visual.image_path, 'panel_background_notification.xpm'
+    )
     logo_image = os.path.join(Visual.image_path, 'logo.xpm')
 
     icon_path = os.path.join(Visual.image_path, 'icons')

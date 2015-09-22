@@ -145,7 +145,7 @@ class PanelStrip:
         if (background):
             self.background(background)
 
-        self.items.append(Text(text))
+        self.items.append(Text(text.replace("\n", ' ')))
 
         if (colour):
             self.colour()
@@ -215,19 +215,14 @@ class Panel:
     def render(self):
         separator = PanelStrip().text('| ', colour=PanelVisual.active)
 
-        left = sum([
-            PanelStrip().image(PanelVisual.background_image, background=True),
-            PanelStrip().image(PanelVisual.logo_image).move(15),
-            self.items['workspaces'],
-            self.items['mode'],
-            separator,
-        ], PanelStrip())
         if self.items['notification']:
+            background_image = PanelVisual.background_image_notification
             right = sum([
                 self.items['notification'],
                 PanelStrip().move(15)
             ], PanelStrip()).trim(2 * (self.width // 3))
         else:
+            background_image = PanelVisual.background_image
             right = sum([
                 self.items['music'],
                 PanelStrip().text(' >>> '),
@@ -235,6 +230,14 @@ class Panel:
                 PanelStrip().text(' '),
                 self.items['system_info']
             ], PanelStrip())
+
+        left = sum([
+            PanelStrip().image(background_image, background=True),
+            PanelStrip().image(PanelVisual.logo_image).move(15),
+            self.items['workspaces'],
+            self.items['mode'],
+            separator,
+        ], PanelStrip())
         mid = sum([
             self.items['current_window']
         ], PanelStrip())

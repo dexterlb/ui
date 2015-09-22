@@ -69,6 +69,7 @@ mkdir -p icons
 for image in "${icons_dir}"/*.png; do
     image_name="$(basename "${image}")"
     overlay_all_positions "${image}" panel_background.xpm "icons/${image_name%.png}.xpm"
+    overlay_all_positions "${image}" panel_background_notification.xpm "icons/${image_name%.png}.xpm"
 done
 
 for image in * icons/*; do
