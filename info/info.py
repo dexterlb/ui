@@ -61,9 +61,11 @@ class WindowManager:
     def loop(self, events):
         while True:
             try:
-                self.single_instance_loop(events)
-            except (FileNotFoundError, BrokenPipeError):
                 self.reconnect()
+                self.single_instance_loop(events)
+            except: # this is dirty, make it more specific
+                print(traceback.format_exc())
+                sleep(1)
 
     def refresh_workspaces(self, events):
         info = PanelStrip('workspaces')

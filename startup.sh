@@ -21,12 +21,14 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     "${cdir}/klayout.sh"    # keyboard layout settings
 
 } &
-    
+
 rofi ${rofi_common[@]} -key-run Mod4+p -key-window Mod4+Tab &
 
 {
     cd "${cdir}"/info
-    ./info.py &> /tmp/info.py.log &
+    ./info.py 2>&1 | while read line; do
+        echo "$(date) ${line}" | xz >> /tmp/info.py.log.xz &
+    done
 }
 
 parcellite -n &>/dev/null &         # clipboard manager

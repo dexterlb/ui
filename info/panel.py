@@ -47,7 +47,6 @@ class Text(PanelItem):
         if PanelVisual.char_width:
             side_chars = (width - separator.width) // (2 * PanelVisual.char_width)
             left_text = self.text[:side_chars]
-            print(len(self.text), side_chars)
             right_text = self.text[len(self.text) - side_chars:]
         else:
             left_text = self.text
@@ -240,7 +239,6 @@ class Panel:
         panel = left + mid + right
 
         self.dzen.stdin.write(panel.data())
-        print(panel.data(), panel.width)
         self.dzen.stdin.flush()
 
     def start(self):
