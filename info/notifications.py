@@ -3,7 +3,7 @@ import dbus.service
 import dbus.mainloop.glib
 import gobject
 import threading
-from queue import Queue
+from queue import Queue, Empty
 
 # very heavily modified code from statnot (https://github.com/halhen/statnot)
 class NotificationFetcher(dbus.service.Object):
@@ -52,6 +52,13 @@ class NotificationFetcher(dbus.service.Object):
         return ("ui", "http://github.com/DexterLB/ui", "0.0.1", "1")
 
 class NotificationMonitor:
+    default_timeout = 3
+    max_timeout = 5
+
+    def __init__(self):
+        self.history = []
+        self.history_index = 0
+
     def fetch_loop(self, notifications):
         dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
         session_bus = dbus.SessionBus()
@@ -65,6 +72,26 @@ class NotificationMonitor:
             print('[gobject iteration]')
             context.iteration(True)
 
+    def show_notification(self, notification, events):
+        print('post ' + str(notification))
+
+    def post_notification(self, notification, events):
+        self.history.append(notification)
+        self.show_notification(notification, events)
+
+    def dismiss_notification(self, events):
+        self.history_index = len(self.history)
+        print('dismiss')
+
+    def history_next(self, events):
+        if not self.history:
+            return
+        self.history_index -= 1
+        if self.history_index < 0:
+            self.history_index = len(self.history) - 1
+
+        self.show_notification(self.history[self.history_index], events)
+
     def loop(self, events=None):
         notifications = Queue()
 
@@ -74,5 +101,23 @@ class NotificationMonitor:
         fetcher_thread.daemon = True
         fetcher_thread.start()
 
+        timeout = None
         while True:
-            print(notifications.get())
+            try:
+                notification = notifications.get(timeout=timeout)
+            except Empty:
+                timeout = None
+                self.dismiss_notification()
+            else:
+                if notification['expire_timeout'] > 0:
+                    timeout = min(
+                        notification['expire_timeout'] / float(1000),
+                        self.max_timeout
+                    )
+                else:
+                    timeout = self.default_timeout
+
+                self.post_notification(notification, events)
+
+if __name__ == '__main__':
+    NotificationMonitor().loop()
