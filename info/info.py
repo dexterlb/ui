@@ -6,6 +6,8 @@ import os
 import subprocess
 import psutil
 import json
+import traceback
+import sys
 from collections import defaultdict
 from queue import Queue
 from datetime import datetime
@@ -63,8 +65,11 @@ class WindowManager:
             try:
                 self.reconnect()
                 self.single_instance_loop(events)
-            except: # this is dirty, make it more specific
-                print(traceback.format_exc())
+            except OSError:
+                sys.stderr.write(
+                    "connection to i3 failed. details: \n" +
+                    traceback.format_exc()
+                )
                 sleep(1)
 
     def refresh_workspaces(self, events):
