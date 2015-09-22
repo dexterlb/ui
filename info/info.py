@@ -16,6 +16,7 @@ from time import sleep
 from visual import PanelVisual
 from raster import Raster
 from music import Music
+from notifications import NotificationMonitor
 from panel import PanelStrip, Panel
 
 class UserCommand:
@@ -165,6 +166,7 @@ class EventLoop:
         self.events = Queue()
         self.panel = Panel()
         self.clock = Clock()
+        self.notification_monitor = NotificationMonitor()
 
         try:
             with open(os.path.expanduser('~/.mpd_data.conf'), 'r') as f:
@@ -220,6 +222,9 @@ class EventLoop:
         )
         self.music_thread = self.start_thread(
             self.music.loop
+        )
+        self.notification_monitor_thread = self.start_thread(
+            self.notification_monitor.loop
         )
 
         self.panel.start()

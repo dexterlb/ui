@@ -5,6 +5,8 @@ import gobject
 import threading
 from queue import Queue, Empty
 
+from panel import PanelVisual, PanelStrip
+
 # very heavily modified code from statnot (https://github.com/halhen/statnot)
 class NotificationFetcher(dbus.service.Object):
     def __init__(self, session_bus, notifications):
@@ -61,6 +63,20 @@ class NotificationMonitor:
         self.stacked_notifications = 0
         self.dismiss_timer = None
 
+    def render_notification(self, notification):
+        info = PanelStrip('notification')
+        if not notification:
+            return info
+
+        if self.stacked_notifications > 1:
+            info.text(
+                '[' + str(self.stacked_notifications) + ']',
+                background=PanelVisual.urgent
+            ).text(' ')
+        info.text(notification['summary'], colour=PanelVisual.active).text(' ')
+        info.text(notification['body'])
+        return info
+
     def fetch_loop(self, notifications):
         dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
         session_bus = dbus.SessionBus()
@@ -71,7 +87,6 @@ class NotificationMonitor:
         context = gobject.MainLoop().get_context()
 
         while True:
-            print('[gobject iteration]')
             context.iteration(True)
 
     def dismiss_after(self, timeout, events):
@@ -94,7 +109,7 @@ class NotificationMonitor:
             timeout = self.default_timeout
 
         self.dismiss_after(timeout, events)
-        print('post ' + str(notification))
+        events.put(self.render_notification(notification))
 
     def post_notification(self, notification, events):
         self.history.append(notification)
@@ -105,7 +120,7 @@ class NotificationMonitor:
     def dismiss_notification(self, events):
         self.history_index = len(self.history)
         self.stacked_notifications = 0
-        print('dismiss')
+        events.put(self.render_notification(None))
 
     def history_next(self, events):
         if not self.history:
@@ -127,6 +142,3 @@ class NotificationMonitor:
 
         while True:
             self.post_notification(notifications.get(), events)
-
-if __name__ == '__main__':
-    NotificationMonitor().loop()

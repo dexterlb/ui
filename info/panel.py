@@ -107,6 +107,9 @@ class PanelStrip:
             strip.background_position = self.background_position
         return strip
 
+    def __bool__(self):
+        return bool(self.items)
+
     def data(self):
         data = ''
         position = 0
@@ -171,10 +174,10 @@ class PanelStrip:
         )
 
     def trim(self, width):
-        if width >= self.width:
-            return self
-
         for index in range(len(self.items) - 1, -1, -1):
+            if width >= self.width:
+                return self
+
             item = self.items[index]
             if 'trimmed' in dir(item):
                 self.items[index:index + 1] = item.trimmed(
@@ -219,13 +222,19 @@ class Panel:
             self.items['mode'],
             separator,
         ], PanelStrip())
-        right = sum([
-            self.items['music'],
-            PanelStrip().text(' >>> '),
-            self.items['clock'],
-            PanelStrip().text(' '),
-            self.items['system_info']
-        ], PanelStrip())
+        if self.items['notification']:
+            right = sum([
+                self.items['notification'],
+                PanelStrip().move(15)
+            ], PanelStrip()).trim(2 * (self.width // 3))
+        else:
+            right = sum([
+                self.items['music'],
+                PanelStrip().text(' >>> '),
+                self.items['clock'],
+                PanelStrip().text(' '),
+                self.items['system_info']
+            ], PanelStrip())
         mid = sum([
             self.items['current_window']
         ], PanelStrip())
