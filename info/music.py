@@ -41,7 +41,7 @@ class Music:
     def safe_call(self, method, *args, **kwargs):
         try:
             return getattr(self.mpd, method)(*args, **kwargs)
-        except MPDError:
+        except (MPDError, ConnectionError):
             try:
                 self.connect()
                 return getattr(self.mpd, method)(*args, **kwargs)
