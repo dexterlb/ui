@@ -209,6 +209,8 @@ class EventLoop:
                 else:
                     is_relative = False
                 self.music_controller.volume(int(command[1]), is_relative)
+            elif command[0] == 'notification_next':
+                self.notification_monitor.history_next(self.events)
 
     def loop(self):
         self.window_manager_thread = self.start_thread(

@@ -3,6 +3,8 @@ import dbus.service
 import dbus.mainloop.glib
 import gobject
 import threading
+import html.parser
+import re
 from queue import Queue, Empty
 
 from panel import PanelVisual, PanelStrip
@@ -63,6 +65,9 @@ class NotificationMonitor:
         self.stacked_notifications = 0
         self.dismiss_timer = None
 
+    def remove_html(self, text):
+        return html.parser.HTMLParser().unescape(re.sub(r'<[^>]*?>', '', text))
+
     def render_notification(self, notification):
         info = PanelStrip('notification')
         if not notification:
@@ -73,8 +78,11 @@ class NotificationMonitor:
                 '[' + str(self.stacked_notifications) + ']',
                 background=PanelVisual.urgent
             ).text(' ')
-        info.text(notification['summary'], colour=PanelVisual.active).text(' ')
-        info.text(notification['body'])
+        info.text(
+            self.remove_html(notification['summary']),
+            colour=PanelVisual.active
+        ).text(' ')
+        info.text(self.remove_html(notification['body']))
         return info
 
     def fetch_loop(self, notifications):
