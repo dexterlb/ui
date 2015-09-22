@@ -17,6 +17,7 @@ from visual import PanelVisual
 from raster import Raster
 from music import Music
 from notifications import NotificationMonitor
+from system_info import SystemInfo, Clock
 from panel import PanelStrip, Panel
 
 class UserCommand:
@@ -99,65 +100,6 @@ class WindowManager:
             events.put(PanelStrip('mode').text(
                 mode, background=PanelVisual.urgent
             ))
-
-class Clock:
-    def loop(self, events):
-        while True:
-            time = datetime.now().strftime('%a %h %Y-%m-%d %H:%M')
-            events.put(PanelStrip('clock').text(time))
-            sleep(60 - datetime.now().second)    # wait until next minute
-
-class Battery:
-    def __init__(self, battery_folder):
-        self.battery_folder = battery_folder
-
-    def read_file(self, filename):
-        with open(os.path.join(self.battery_folder, filename), 'r') as f:
-            return f.read().strip()
-
-    def status(self):
-        return self.read_file('status')
-
-    def exists(self):
-        return (int(self.read_file('present')) == 1)
-
-    def current_charge(self):
-        return int(self.read_file('charge_now')) // 1000
-
-    def current(self):  # current as in mA
-        return int(self.read_file('current_now')) // 1000
-
-    def percent(self):
-        return int(self.read_file('capacity'))
-
-class SystemInfo:
-    def __init__(self):
-        self.battery = Battery('/sys/class/power_supply/BAT1')
-
-    def load(self):
-        return "%.1f" % os.getloadavg()[0]
-
-    def ram(self):
-        return str(int(psutil.virtual_memory().percent)) + '%'
-
-    def cpu(self, wait_time):
-        return str(int(psutil.cpu_percent(interval=wait_time))) + '%'
-
-    def loop(self, events):
-        cpu = '--'
-        while True:
-            info = PanelStrip('system_info')
-            if self.battery.exists():
-                info.text(self.battery.status() + ': ')
-                info.text(str(self.battery.current_charge()) + 'mAh')
-                info.text(' (' + str(self.battery.percent()) + '%)')
-                if self.battery.status() == 'Discharging':
-                    info.text(' at ' + str(self.battery.current()) + 'mA')
-            info.text(' cpu: ' + cpu + ' ram: ' + self.ram())
-            info.text(' load: ' + self.load())
-            events.put(info)
-
-            cpu = self.cpu(5)   # wait 5 seconds and measure cpu
 
 
 class EventLoop:
