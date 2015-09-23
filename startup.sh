@@ -18,8 +18,9 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     # xset m 3/1 0            # mouse acceleration and speed
     xhost local:boinc       # allow boinc user to use GPU
 
-    "${cdir}/klayout.sh"    # keyboard layout settings
 
+    "${cdir}/klayout.sh"    # keyboard layout settings
+    xcape -e 'Caps_Lock=Escape'
 } &
 
 rofi ${rofi_common[@]} -key-run Mod4+p -key-window Mod4+Tab &
