@@ -228,10 +228,10 @@ class Panel:
             background_image = PanelVisual.background_image
             right = sum([
                 self.items['music'],
-                PanelStrip().text(' >>> '),
                 PanelStrip().text(' '),
+                separator,
                 self.items['system_info'],
-                PanelStrip().text('| ', colour=PanelVisual.active),
+                separator,
                 self.items['clock'],
                 PanelStrip().move(8)
             ], PanelStrip())

@@ -28,6 +28,7 @@ class Music:
         if status['state'] not in ('play', 'pause'):
             return info.text("DON'T PANIC!")
 
+        info.icon('music')
         info += PanelStrip().text(song['artist']).trim(200).text(' - ')
 
         if status['state'] == 'play':
@@ -35,8 +36,8 @@ class Music:
         else:
             colour = None
         info += PanelStrip().text(song['title'], colour).trim(200)
-
-        return info.text(' vol: ' + status['volume'])
+        info.move(8).icon('volume').move(3)
+        return info.text(status['volume'])
 
     def safe_call(self, method, *args, **kwargs):
         try:
