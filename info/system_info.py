@@ -19,7 +19,7 @@ from panel import PanelStrip
 class Clock:
     def loop(self, events):
         while True:
-            time = datetime.now().strftime('%a %h %Y-%m-%d %H:%M')
+            time = datetime.now().strftime('%a %h %d %H:%M')
             events.put(PanelStrip('clock').text(time))
             sleep(60 - datetime.now().second)    # wait until next minute
 
@@ -59,23 +59,39 @@ class SystemInfo:
     def cpu(self, wait_time):
         return str(int(psutil.cpu_percent(interval=wait_time))) + '%'
 
+    def battery_info(self):
+        if not self.battery.exists():
+            return
+        status = self.battery.status()
+
+        info = PanelStrip('battery')
+
+        if status == 'Full':
+            info.icon('battery_max')
+        elif status == 'Charging':
+            info.icon('battery_charging')
+        else:
+            info.icon('battery')
+        if self.battery.percent() < 15:
+            background = PanelVisual.urgent
+        else:
+            background = None
+        info.text(
+            str(self.battery.percent()) + '%',
+            background=background
+        )
+        info.text(' (' + str(self.battery.current_charge()) + 'mAh')
+        if self.battery.status() == 'Discharging':
+            info.text(' at ' + str(self.battery.current()) + 'mA')
+        info.text(') ')
+
+        return info
+
     def loop(self, events):
         cpu = '--'
         while True:
             info = PanelStrip('system_info')
-            if self.battery.exists():
-                info.text(self.battery.status() + ': ')
-                info.text(str(self.battery.current_charge()) + 'mAh ')
-                if self.battery.percent() < 15:
-                    background = PanelVisual.urgent
-                else:
-                    background = None
-                info.text(
-                    '(' + str(self.battery.percent()) + '%)',
-                    background=background
-                )
-                if self.battery.status() == 'Discharging':
-                    info.text(' at ' + str(self.battery.current()) + 'mA')
+            info += self.battery_info()
 
             info.icon('cpu').text(cpu).text(' ')
             info.icon('ram').text(self.ram()).text(' ')

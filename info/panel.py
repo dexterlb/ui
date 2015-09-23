@@ -59,9 +59,9 @@ class Text(PanelItem):
                 right_text = right_text[1:]
 
         return (
-            PanelStrip().text(left_text)
+            PanelStrip().text(left_text.rstrip())
             + separator
-            + PanelStrip().text(right_text)
+            + PanelStrip().text(right_text.lstrip())
         )
 
     def panel_data(self, overlay_suffix=None):
@@ -140,6 +140,9 @@ class PanelStrip:
         return self
 
     def text(self, text, colour=None, background=None):
+        if not text:
+            return self
+
         if (colour):
             self.colour(colour)
         if (background):
@@ -226,9 +229,11 @@ class Panel:
             right = sum([
                 self.items['music'],
                 PanelStrip().text(' >>> '),
-                self.items['clock'],
                 PanelStrip().text(' '),
-                self.items['system_info']
+                self.items['system_info'],
+                PanelStrip().text('| ', colour=PanelVisual.active),
+                self.items['clock'],
+                PanelStrip().move(8)
             ], PanelStrip())
 
         left = sum([
