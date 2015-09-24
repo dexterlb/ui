@@ -13,7 +13,7 @@ from time import sleep
 
 from visual import PanelVisual
 from raster import Raster
-from panel import PanelStrip
+from panel_strip import PanelStrip
 
 
 class Clock:

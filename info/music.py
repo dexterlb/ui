@@ -2,7 +2,7 @@ import sys
 from mpd import MPDClient
 from mpd import MPDError
 from time import sleep
-from panel import PanelStrip
+from panel_strip import PanelStrip
 from visual import PanelVisual
 
 class Music:

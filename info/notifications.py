@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import dbus
 import dbus.service
 import dbus.mainloop.glib
@@ -7,7 +9,8 @@ import html.parser
 import re
 from queue import Queue, Empty
 
-from panel import PanelVisual, PanelStrip
+from visual import PanelVisual
+from panel_strip import PanelStrip
 
 # very heavily modified code from statnot (https://github.com/halhen/statnot)
 class NotificationFetcher(dbus.service.Object):
