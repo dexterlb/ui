@@ -43,11 +43,8 @@ class Music:
         try:
             return getattr(self.mpd, method)(*args, **kwargs)
         except (MPDError, ConnectionError):
-            try:
-                self.connect()
-                return getattr(self.mpd, method)(*args, **kwargs)
-            except MPDError:
-                return None
+            self.connect()
+            return getattr(self.mpd, method)(*args, **kwargs)
 
     def play(self):
         return self.safe_call('play')
