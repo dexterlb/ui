@@ -54,25 +54,31 @@ class EventLoop:
         if isinstance(event, PanelStrip):
             self.panel.update(event)
         elif isinstance(event, UserCommand):
-            command = event.command.split()
-            if command[0] == 'music_pause':
-                self.music_controller.pause()
-            elif command[0] == 'music_stop':
-                self.music_controller.stop()
-            elif command[0] == 'music_home':
-                self.music_controller.seek(0)
-            elif command[0] == 'music_next':
-                self.music_controller.next()
-            elif command[0] == 'music_previous':
-                self.music_controller.previous()
-            elif command[0] == 'music_volume':
-                if command[1].startswith('+') or command[1].startswith('-'):
-                    is_relative = True
-                else:
-                    is_relative = False
-                self.music_controller.volume(int(command[1]), is_relative)
-            elif command[0] == 'notification_next':
-                self.notification_monitor.history_next(self.events)
+            try:
+                command = event.command.split()
+                if command[0] == 'music_pause':
+                    self.music_controller.pause()
+                elif command[0] == 'music_stop':
+                    self.music_controller.stop()
+                elif command[0] == 'music_home':
+                    self.music_controller.seek(0)
+                elif command[0] == 'music_next':
+                    self.music_controller.next()
+                elif command[0] == 'music_previous':
+                    self.music_controller.previous()
+                elif command[0] == 'music_volume':
+                    if command[1].startswith('+') or command[1].startswith('-'):
+                        is_relative = True
+                    else:
+                        is_relative = False
+                    self.music_controller.volume(int(command[1]), is_relative)
+                elif command[0] == 'notification_next':
+                    self.notification_monitor.history_next(self.events)
+            except:
+                sys.stderr.write(
+                    "connection to i3 failed. details: \n" +
+                    traceback.format_exc()
+                )
 
     def loop(self):
         self.window_manager_thread = self.start_thread(
