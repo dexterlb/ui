@@ -45,7 +45,7 @@ class Music:
         except (MPDError, ConnectionError):
             try:
                 self.connect()
-            except ConnectionError:
+            except (BrokenPipeError, ConnectionError):
                 pass    # probably already connected. If not, the following will fail
             return getattr(self.mpd, method)(*args, **kwargs)
 
