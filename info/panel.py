@@ -35,6 +35,7 @@ class Panel:
                 self.items['notification'],
                 PanelStrip().move(15)
             ], PanelStrip()).trim(2 * (self.width // 3))
+            mid = PanelStrip()
         else:
             background_image = PanelVisual.background_image
             right = sum([
@@ -46,6 +47,9 @@ class Panel:
                 self.items['clock'],
                 PanelStrip().move(8)
             ], PanelStrip())
+            mid = sum([
+                self.items['current_window']
+            ], PanelStrip())
 
         left = sum([
             PanelStrip().image(background_image, background=True),
@@ -53,9 +57,6 @@ class Panel:
             self.items['workspaces'],
             self.items['mode'],
             separator,
-        ], PanelStrip())
-        mid = sum([
-            self.items['current_window']
         ], PanelStrip())
 
         if mid.width > self.width - left.width - right.width:
