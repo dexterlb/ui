@@ -76,7 +76,7 @@ class EventLoop:
                     self.notification_monitor.history_next(self.events)
             except:
                 sys.stderr.write(
-                    "connection to i3 failed. details: \n" +
+                    "failed executing command. details: \n" +
                     traceback.format_exc()
                 )
 
