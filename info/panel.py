@@ -15,6 +15,7 @@ class Panel:
         '-fn', PanelVisual.font,
         '-ta', 'l',
         '-h', str(PanelVisual.height),
+        '-e', 'button1=exec:../session_menu.sh',
         '-dock'
     ]
 

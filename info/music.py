@@ -43,7 +43,6 @@ class Music:
         try:
             return getattr(self.mpd, method)(*args, **kwargs)
         except (MPDError, ConnectionError):
-            self.mpd.kill()
             self.connect()
             return getattr(self.mpd, method)(*args, **kwargs)
 
