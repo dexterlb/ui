@@ -80,7 +80,10 @@ class WindowManager:
                 colour = PanelVisual.active
             if workspace.urgent:
                 background = PanelVisual.urgent
+            info.click('i3-msg workspace ' + workspace.name)
             info.text(workspace.name, colour, background).text(' ')
+
+        info.click()
 
         events.put(info)
 

@@ -87,6 +87,16 @@ class Image(PanelItem):
         return data
 
 
+class Clickable(PanelItem):
+    width = 0
+
+    def __init__(self, command=None):
+        if command:
+            self.data = '^ca(1,' + command + ')'
+        else:
+            self.data = '^ca()'
+
+
 class PanelStrip:
     def __init__(self, key=None):
         self.key = key
@@ -177,6 +187,10 @@ class PanelStrip:
             os.path.join(PanelVisual.icon_path, icon_name + '.xpm'),
             overlay=True
         )
+
+    def click(self, command=None):
+        self.items.append(Clickable(command))
+        return self
 
     def trim(self, width):
         for index in range(len(self.items) - 1, -1, -1):
