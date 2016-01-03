@@ -10,12 +10,24 @@ class Music:
         self.hostname = hostname
         self.port = port
         self.password = password
-        self.mpd = MPDClient()
+        self.mpd = None
 
     def clone(self):
         return Music(self.hostname, self.port, self.password)
 
     def connect(self):
+        if self.mpd:
+            # the mpd client library is very buggy, too lazy to fix it,
+            # so making an ugly hack.
+            try:
+                self.mpd.disconnect()
+            except:
+                pass
+            finally:
+                self.mpd = None
+
+        self.mpd = MPDClient()
+
         self.mpd.connect(self.hostname, self.port)
         if self.password:
             self.mpd.password(self.password)
@@ -42,7 +54,7 @@ class Music:
     def safe_call(self, method, *args, **kwargs):
         try:
             return getattr(self.mpd, method)(*args, **kwargs)
-        except (MPDError, ConnectionError):
+        except (MPDError, ConnectionError, AttributeError):
             self.connect()
             return getattr(self.mpd, method)(*args, **kwargs)
 
