@@ -23,8 +23,6 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     xcape -e 'Caps_Lock=Escape'
 } &
 
-rofi ${rofi_common[@]} -key-run SuperL+p -key-window SuperL+Tab &
-
 {
     cd "${cdir}"/info
     ./info.py 2>&1 | while read line; do

@@ -225,6 +225,8 @@ bindsym $mod+Mod1+n nop send notification_next
 bindsym $mod+Escape exec $base_dir/session_menu.sh
 
 bindsym --release Print exec $base_dir/screenshot.sh full
+bindsym --release $mod+p exec $base_dir/runmenu.sh run
+bindsym --release $mod+Tab exec $base_dir/runmenu.sh window
 bindsym --release Shift+Print exec $base_dir/screenshot.sh region
 bindsym --release Control+Print exec $base_dir/screenshot.sh window
 bindsym $mod+Print exec $base_dir/screenshot.sh
