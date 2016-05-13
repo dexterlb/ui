@@ -32,7 +32,7 @@ font pango:Droid Sans Mono 0
 
 # Colours
 # class                 border  backgr. text    indicator child_border
-client.focused          #467d50 #2b5f37 #ffffff #2ef451   #2b5f37
+client.focused          #467d50 #2b5f37 #ffffff #26a73c   #2b5f37
 client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
 client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
