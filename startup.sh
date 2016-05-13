@@ -23,13 +23,15 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     xcape -e 'Caps_Lock=Escape'
 } &
 
-rofi ${rofi_common[@]} -key-run Mod4+p -key-window Mod4+Tab &
+rofi ${rofi_common[@]} -key-run SuperL+p -key-window SuperL+Tab &
 
 {
     cd "${cdir}"/info
     ./info.py 2>&1 | while read line; do
-        echo "$(date) ${line}" | xz >> /tmp/info.py.log.xz &
+        echo "$(date) ${line}" | xz >> /tmp/info.py.log.xz
     done
-}
+} &
 
 parcellite -n &>/dev/null &         # clipboard manager
+
+# compton --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc -D 2 -b
