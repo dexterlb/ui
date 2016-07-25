@@ -9,7 +9,9 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 
     feh --bg-fill "${generated_dir}"/wallpaper.jpg
 
+    export QT_STYLE_OVERRIDE='gtk2'
     export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
     # unclutter &             # autohide pointer
     xset b off              # speakerectomy
     xset s off              # no screensaver
