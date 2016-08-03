@@ -36,16 +36,28 @@ scrot -d 0.1 ${option} "${filename}"
 echo \
 "leave it be in ${filename}
 copy filename to clipboard
+copy image to clipboard
 serve it
 delete it
 cancel" | rofi ${rofi_common[@]} -dmenu -p "what to do with the screenshot" \
-        | read action _
+        | read action object _
 
 case "${action}" in
     leave)
         ;;
     copy)
-        echo -n "${filename}" | xclip -sel clip
+        case "${object}" in
+            filename)
+                echo -n "${filename}" | xclip -sel clip
+                ;;
+            image)
+                cat "${filename}" | xclip -sel clip -t image/png
+                ;;
+            *)
+                echo "copy whaaaaat?"
+                exit 1
+                ;;
+        esac
         ;;
     serve)
         serve "${filename}"
