@@ -31,7 +31,7 @@ class EventLoop:
         self.notification_monitor = NotificationMonitor()
 
         try:
-            with open(os.path.expanduser('~/.mpd_data.conf'), 'r') as f:
+            with open(os.path.expanduser('~/.config/mpd/credentials.conf'), 'r') as f:
                 mpd_settings = json.load(f)
         except FileNotFoundError:
             self.music = Music()

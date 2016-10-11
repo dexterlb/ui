@@ -9,7 +9,7 @@
 # layout, use the i3-config-wizard
 #
 
-set $base_dir ~/ui
+set $base_dir ~/run/ui
 set $i3_dir $base_dir/i3
 
 # super key
@@ -230,5 +230,15 @@ bindsym --release $mod+Tab exec $base_dir/runmenu.sh window
 bindsym --release Shift+Print exec $base_dir/screenshot.sh region
 bindsym --release Control+Print exec $base_dir/screenshot.sh window
 bindsym $mod+Print exec $base_dir/screenshot.sh
+
+# per-window configuration
+
+assign [class="^Steam$"] 6
+assign [class="^dota2$"] 6
+assign [class="^explorer\.exe$"] 6
+assign [class="^Firefox$"] 2
+assign [class="^Hexchat$"] 3
+assign [class="^Mumble$"] 3
+assign [class="^telegram-desktop$"] 3
 
 exec $base_dir/startup.sh
