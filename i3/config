@@ -220,6 +220,9 @@ bindsym --release --whole-window $mod+Control+button5 nop send music_volume -1
 bindsym --release --whole-window $mod+Control+button4 nop send music_volume +1
 bindsym $mod+Control+period nop send music_home
 
+bindsym $mod+Mod1+r exec systemctl --user start redshift
+bindsym $mod+Mod1+b exec systemctl --user stop redshift
+
 bindsym $mod+Mod1+n nop send notification_next
 
 bindsym $mod+Escape exec $base_dir/session_menu.sh
@@ -230,6 +233,7 @@ bindsym --release $mod+Tab exec $base_dir/runmenu.sh window
 bindsym --release Shift+Print exec $base_dir/screenshot.sh region
 bindsym --release Control+Print exec $base_dir/screenshot.sh window
 bindsym $mod+Print exec $base_dir/screenshot.sh
+
 
 # per-window configuration
 
