@@ -34,4 +34,6 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 
 parcellite -n &>/dev/null &         # clipboard manager
 
+systemctl --user start redshift
+
 # compton --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc -D 2 -b
