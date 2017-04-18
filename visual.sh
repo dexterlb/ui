@@ -5,7 +5,7 @@ cdir="$(readlink -f "$(dirname "$0")")"
 image_dir="${cdir}/images"
 generated_dir="${cdir}/images/generated"
 
-wallpaper="${image_dir}/meat.jpg"
+wallpaper="${image_dir}/machinarium.jpg"
 logo="${image_dir}/logo.png"
 icons_dir="${image_dir}/icons"
 

@@ -57,9 +57,8 @@ convert -resize "${screen_width},${screen_height}^" \
         -gravity center -crop "${screen_width}x${screen_height}x0x0" +repage \
         -gravity NorthEast -crop "${panel_width}x${panel_height}+0+0" +repage \
         -blur 5x7 \
-        -modulate 85,70,65 \
+        -modulate 55,65,98 \
         -fill green \
-        -tint 5 \
         wallpaper.jpg panel_background.xpm
 convert -fill red -tint 20 panel_background.xpm panel_background_notification.xpm
 
