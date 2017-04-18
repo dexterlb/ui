@@ -263,6 +263,9 @@ bindsym --release Shift+Print exec $base_dir/screenshot.sh region
 bindsym --release Control+Print exec $base_dir/screenshot.sh window
 bindsym $mod+Print exec $base_dir/screenshot.sh
 
+bindsym --release $mod+Mod1+d exec $base_dir/detect_displays.sh
+bindsym --release $mod+Mod1+c exec $base_dir/detect_displays.sh clone
+bindsym --release $mod+Mod1+s exec $base_dir/detect_displays.sh single
 
 # per-window configuration
 

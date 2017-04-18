@@ -7,7 +7,7 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     # X settings
     xsetroot -cursor_name left_ptr
 
-    feh --bg-fill "${generated_dir}"/wallpaper.jpg
+    "${cdir}/set_wallpaper.sh"
 
     export QT_STYLE_OVERRIDE='gtk2'
     export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
@@ -32,8 +32,13 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     done
 } &
 
+{
+    "${cdir}/detect_displays.sh"
+} &
+
 parcellite -n &>/dev/null &         # clipboard manager
 
+systemctl --user stop redshift
 systemctl --user start redshift
 
 # compton --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc -D 2 -b
