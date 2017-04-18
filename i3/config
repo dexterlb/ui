@@ -146,6 +146,29 @@ bindsym $mod+F10 workspace f10
 bindsym $mod+F11 workspace f11
 bindsym $mod+F12 workspace f12
 
+bindsym $mod+Mod1+1 nop do switch_current_display_workspace 1
+bindsym $mod+Mod1+2 nop do switch_current_display_workspace 2
+bindsym $mod+Mod1+3 nop do switch_current_display_workspace 3
+bindsym $mod+Mod1+4 nop do switch_current_display_workspace 4
+bindsym $mod+Mod1+5 nop do switch_current_display_workspace 5
+bindsym $mod+Mod1+6 nop do switch_current_display_workspace 6
+bindsym $mod+Mod1+7 nop do switch_current_display_workspace 7
+bindsym $mod+Mod1+8 nop do switch_current_display_workspace 8
+bindsym $mod+Mod1+9 nop do switch_current_display_workspace 9
+bindsym $mod+Mod1+0 nop do switch_current_display_workspace 10
+bindsym $mod+Mod1+F1 nop do switch_current_display_workspace f1
+bindsym $mod+Mod1+F2 nop do switch_current_display_workspace f2
+bindsym $mod+Mod1+F3 nop do switch_current_display_workspace f3
+bindsym $mod+Mod1+F4 nop do switch_current_display_workspace f4
+bindsym $mod+Mod1+F5 nop do switch_current_display_workspace f5
+bindsym $mod+Mod1+F6 nop do switch_current_display_workspace f6
+bindsym $mod+Mod1+F7 nop do switch_current_display_workspace f7
+bindsym $mod+Mod1+F8 nop do switch_current_display_workspace f8
+bindsym $mod+Mod1+F9 nop do switch_current_display_workspace f9
+bindsym $mod+Mod1+F10 nop do switch_current_display_workspace f10
+bindsym $mod+Mod1+F11 nop do switch_current_display_workspace f11
+bindsym $mod+Mod1+F12 nop do switch_current_display_workspace f12
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -169,6 +192,12 @@ bindsym $mod+Shift+F9 move container to workspace f9
 bindsym $mod+Shift+F10 move container to workspace f10
 bindsym $mod+Shift+F11 move container to workspace f11
 bindsym $mod+Shift+F12 move container to workspace f12
+
+bindsym $mod+Mod1+Left move workspace to output left
+bindsym $mod+Mod1+Right move workspace to output right
+
+bindsym $mod+Mod1+h move workspace to output left
+bindsym $mod+Mod1+l move workspace to output right
 
 # reload the configuration file
 # bindsym $mod+Shift+c reload

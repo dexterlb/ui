@@ -51,6 +51,11 @@ class WindowManager:
             prefix = 'nop send '
             if event.binding.command.startswith(prefix):
                 events.put(UserCommand(event.binding.command[len(prefix):]))
+
+            prefix = 'nop do '
+            if event.binding.command.startswith(prefix):
+                self.window_manager_command(event.binding.command[len(prefix):])
+
         self.i3.on('binding', command_event)
 
         workspace_event()
@@ -72,7 +77,12 @@ class WindowManager:
 
     def refresh_workspaces(self, events):
         info = PanelStrip('workspaces')
-        for workspace in self.i3.get_workspaces():
+
+        workspaces = self.i3.get_workspaces()
+        outputs = {workspace.output for workspace in workspaces}
+
+        prev_output = None
+        for workspace in workspaces:
             colour, background = None, None
             if workspace.visible:
                 colour = PanelVisual.semiactive
@@ -80,10 +90,20 @@ class WindowManager:
                 colour = PanelVisual.active
             if workspace.urgent:
                 background = PanelVisual.urgent
-            info.click('i3-msg workspace ' + workspace.name)
-            info.text(workspace.name, colour, background).text(' ')
+            if workspace.output != prev_output and len(outputs) > 1:
+                info.text(
+                    '[' + friendly_output_name(workspace.output) + '] ',
+                    PanelVisual.dull
+                )
 
-        info.click()
+            info.click('i3-msg workspace ' + workspace.name)
+            info.text(workspace.name, colour, background)
+            info.click()
+            info.text(' ')
+
+            prev_output = workspace.output
+
+
 
         events.put(info)
 
@@ -99,3 +119,20 @@ class WindowManager:
             events.put(PanelStrip('mode').text(
                 mode, background=PanelVisual.urgent
             ))
+
+    def window_manager_command(self, command):
+        command = command.split()
+
+        if command[0] == 'switch_current_display_workspace':
+            self.switch_current_display_workspace(command[1])
+
+    def switch_current_display_workspace(self, new_workspace):
+        workspaces = self.i3.get_workspaces()
+        focused_workspace = next(w for w in workspaces if w.focused)
+        focused_output = focused_workspace.output
+
+        self.i3.command('workspace ' + str(new_workspace))
+        self.i3.command('move workspace to output ' + focused_output)
+        self.i3.command('workspace ' + str(new_workspace))
+def friendly_output_name(name):
+    return name.replace('HDMI-', 'H').replace('eDP-', 'E')

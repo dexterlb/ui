@@ -5,6 +5,7 @@ class Visual:
 
 class PanelVisual:
     default = '#efebe5'
+    dull = '#999999'
     semiactive = '#7cd4fc'
     active = '#ebac54'
     urgent = '#ff0000'
