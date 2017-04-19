@@ -54,7 +54,7 @@ function set_displays {
                     command="${command} --right-of ${previous} --auto"
                 fi
             else
-                command="${command} --primary"
+                command="${command} --primary --auto"
             fi
 
             previous="${display}"
