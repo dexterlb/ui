@@ -18,13 +18,13 @@ function lid_open {
 
 function prioritise_displays {
     while read display; do
-        if [[ "${display}" =~ '^eDP-' ]]; then
+        if [[ "${display}" =~ '^eDP-?' ]]; then
             if lid_open; then
                 echo "5 ${display}"
             else
                 echo "-1 ${display}"    # turn off if lid is closed
             fi
-        elif [[ "${display}" =~ '^HDMI-' ]]; then
+        elif [[ "${display}" =~ '^HDMI-?' ]]; then
             echo "2 ${display}"         # hdmi has higher priority than laptop
         else
             echo "10 ${display}"        # unknown displays have lowest priority
