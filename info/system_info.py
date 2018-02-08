@@ -48,7 +48,7 @@ class Battery:
 
 class SystemInfo:
     def __init__(self):
-        self.battery = Battery('/sys/class/power_supply/BAT1')
+        self.battery = Battery('/sys/class/power_supply/BAT0')
 
     def load(self):
         return "%.1f" % os.getloadavg()[0]
@@ -66,7 +66,7 @@ class SystemInfo:
 
         info = PanelStrip('battery')
 
-        if status == 'Full':
+        if status == 'Full' or status == 'Unknown':
             info.icon('battery_max')
         elif status == 'Charging':
             info.icon('battery_charging')
@@ -82,7 +82,10 @@ class SystemInfo:
         )
         info.text(' (' + str(self.battery.current_charge()) + 'mAh')
         if self.battery.status() == 'Discharging':
-            info.text(' at ' + str(self.battery.current()) + 'mA')
+            try:
+                info.text(' at ' + str(self.battery.current()) + 'mA')
+            except OSError:
+                pass
         info.text(') ')
 
         return info
