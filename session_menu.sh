@@ -23,11 +23,11 @@ case ${res} in
         exit 0
         ;;
     'suspend')
-        physlock & { sleep 3 ; sudo systemctl suspend }
+        systemctl suspend
         exit 0
         ;;
     'lock')
-        physlock
+        lock
         exit 0
         ;;
     *)
