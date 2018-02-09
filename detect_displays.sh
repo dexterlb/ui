@@ -24,10 +24,12 @@ function prioritise_displays {
             else
                 echo "-1 ${display}"    # turn off if lid is closed
             fi
+        elif [[ "${display}" =~ '^DP-?' ]]; then
+            echo "2 ${display}"         # displayPort has very high priority
         elif [[ "${display}" =~ '^HDMI-?' ]]; then
-            echo "2 ${display}"         # hdmi has higher priority than laptop
+            echo "3 ${display}"         # hdmi has higher priority than laptop
         else
-            echo "10 ${display}"        # unknown displays have lowest priority
+            echo "9 ${display}"        # unknown displays have lowest priority
         fi
     done
 }
