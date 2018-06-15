@@ -16,6 +16,23 @@ function lid_open {
     return 1
 }
 
+function configure_redshift {
+    config_file=~/.config/redshift.conf
+
+    old_sum=$(cat config_file | sha256sum)
+
+    if lid_open; then
+        cp -rvf "${cdir}"/redshift_laptop.conf "${config_file}"
+    else
+        cp -rvf "${cdir}"/redshift_monitor.conf "${config_file}"
+    fi
+    old_sum=$(cat config_file | sha256sum)
+
+    if [[ "${old_sum}" != "${new_sum}" ]]; then
+        systemctl --user restart redshift
+    fi
+}
+
 function prioritise_displays {
     while read display; do
         if [[ "${display}" =~ '^eDP-?' ]]; then
@@ -53,7 +70,9 @@ function set_displays {
                 elif [[ "${1}" == "single" ]]; then
                     command="${command} --off"
                 else
-                    command="${command} --right-of ${previous} --auto"
+                    # the primary monitor is on the right, and the rest are
+                    # sorted by priority going left
+                    command="${command} --left-of ${previous} --auto"
                 fi
             else
                 command="${command} --primary --auto"
@@ -73,3 +92,6 @@ get_displays | prioritise_displays | sort_displays | set_displays single | spong
 
 "${cdir}/set_wallpaper.sh"
 "${cdir}/klayout.sh"        # often a display comes with a keyboard
+xcalib "${cdir}/colour_profile.icc"
+
+configure_redshift

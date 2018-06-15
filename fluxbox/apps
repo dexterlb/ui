@@ -2,5 +2,5 @@
   [Position]	(CENTER)	{0 0}
   [Layer]	{2}
 [end]
-[app] (name=lilyterm) (class=LilyTerm)
+[app] (name=kitty) (class=Kitty)
 [end]

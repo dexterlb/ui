@@ -58,7 +58,7 @@ Mod4 Shift Tab :PrevWindow {groups} (workspace=[current])
 # Mod4 9 :Tab 9
 
 # open a terminal
-Mod4 Return :ExecCommand lilyterm
+Mod4 Return :ExecCommand kitty
 
 # open a dialog to run programs
 Mod4 p :Exec gmrun

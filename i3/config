@@ -52,7 +52,7 @@ set $right l
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec lilyterm
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+c kill
@@ -252,10 +252,10 @@ bindsym $mod+Control+period nop send music_home
 bindsym $mod+Mod1+r exec systemctl --user start redshift
 bindsym $mod+Mod1+b exec systemctl --user stop redshift
 
-bindsym $mod+Mod1+minus   exec xbacklight - 20
-bindsym $mod+Mod1+plus    exec xbacklight + 20
-bindsym $mod+Shift+minus  exec xbacklight - 4
-bindsym $mod+Shift+plus   exec xbacklight + 4
+bindsym $mod+Mod1+minus   exec xbacklight -dec 4
+bindsym $mod+Mod1+plus    exec xbacklight -inc 4
+bindsym $mod+Shift+minus  exec xbacklight -dec 1
+bindsym $mod+Shift+plus   exec xbacklight -inc 1
 
 bindsym $mod+Mod1+n nop send notification_next
 
