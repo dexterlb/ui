@@ -243,8 +243,8 @@ bindsym Pause nop send music_pause
 bindsym $mod+Control+Escape nop send music_stop
 bindsym $mod+Control+Right nop send music_next
 bindsym $mod+Control+Left nop send music_previous
-bindsym $mod+Control+Up nop send music_volume +3
-bindsym $mod+Control+Down nop send music_volume -3
+bindsym $mod+Control+Up nop send music_volume +1
+bindsym $mod+Control+Down nop send music_volume -1
 bindsym --release --whole-window $mod+Control+button5 nop send music_volume -1
 bindsym --release --whole-window $mod+Control+button4 nop send music_volume +1
 bindsym $mod+Control+period nop send music_home
