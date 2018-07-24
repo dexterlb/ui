@@ -9,6 +9,10 @@ function killx {
     killall i3
 }
 
+function lock {
+    physlock -d
+}
+
 case ${res} in
     'restart')
         systemctl reboot & killx
