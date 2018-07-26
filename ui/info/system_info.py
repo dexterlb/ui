@@ -35,7 +35,10 @@ class Battery:
         return self.read_file('status')
 
     def exists(self):
-        return (int(self.read_file('present')) == 1)
+        try:
+            return (int(self.read_file('present')) == 1)
+        except FileNotFoundError:
+            return False
 
     def current_charge(self):
         return int(self.read_file('charge_now')) // 1000
@@ -60,11 +63,11 @@ class SystemInfo:
         return str(int(psutil.cpu_percent(interval=wait_time))) + '%'
 
     def battery_info(self):
-        if not self.battery.exists():
-            return
-        status = self.battery.status()
-
         info = PanelStrip('battery')
+        if not self.battery.exists():
+            return info
+
+        status = self.battery.status()
 
         if status == 'Full' or status == 'Unknown':
             info.icon('battery_max')
