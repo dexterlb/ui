@@ -90,6 +90,8 @@ function set_displays {
 
 get_displays | prioritise_displays | sort_displays | set_displays single | sponge | set_displays "${@}" > /dev/null
 
+xrasengan -tral
+
 "${cdir}/set_wallpaper.sh"
 "${cdir}/klayout.sh"        # often a display comes with a keyboard
 xcalib "${cdir}/colour_profile.icc"
