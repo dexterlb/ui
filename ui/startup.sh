@@ -26,13 +26,6 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 } &
 
 {
-    cd "${cdir}"/info
-    ./info.py 2>&1 | while read line; do
-        echo "$(date) ${line}" | xz >> /tmp/info.py.log.xz
-    done
-} &
-
-{
     "${cdir}/detect_displays.sh"
 } &
 
