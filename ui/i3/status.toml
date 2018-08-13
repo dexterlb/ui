@@ -1,5 +1,9 @@
-theme = "solarized-dark"
+theme = "slick"
 icons = "awesome"
+
+[[block]]
+block = "focused_window"
+max_width = 120
 
 [[block]]
 block = "cpu"

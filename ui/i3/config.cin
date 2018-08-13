@@ -9,9 +9,6 @@
 # layout, use the i3-config-wizard
 #
 
-set $base_dir ~/run/ui
-set $i3_dir $base_dir/i3
-
 # super key
 set $mod Mod4
 
@@ -234,6 +231,9 @@ bindsym $mod+Shift+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+
+set $c_bg "#5a4931"
+
 bar {
       font pango:Droid Sans Mono, Font Awesome 12
       position top
@@ -241,9 +241,9 @@ bar {
       status_command i3status-rs ~/run/ui/i3/status.toml
       colors {
             separator #666666
-            background #222222
+            background $c_bg
             statusline #dddddd
-            focused_workspace #0088CC #0088CC #ffffff
+            focused_workspace #0088CC #0088CC #ebac54
             active_workspace #333333 #333333 #ffffff
             inactive_workspace #333333 #333333 #888888
             urgent_workspace #2f343a #900000 #ffffff
@@ -271,18 +271,18 @@ bindsym $mod+Shift+plus   exec xbacklight -inc 1
 
 bindsym $mod+Mod1+n nop send notification_next
 
-bindsym $mod+Escape exec $base_dir/session_menu.sh
+bindsym $mod+Escape exec {{ ui_dir }}/session_menu.sh
 
-bindsym --release Print exec $base_dir/screenshot.sh full
-bindsym --release $mod+p exec $base_dir/runmenu.sh run
-bindsym --release $mod+Tab exec $base_dir/runmenu.sh window
-bindsym --release Shift+Print exec $base_dir/screenshot.sh region
-bindsym --release Control+Print exec $base_dir/screenshot.sh window
-bindsym $mod+Print exec $base_dir/screenshot.sh
+bindsym --release Print exec {{ ui_dir }}/screenshot.sh full
+bindsym --release $mod+p exec {{ ui_dir }}/runmenu.sh run
+bindsym --release $mod+Tab exec {{ ui_dir }}/runmenu.sh window
+bindsym --release Shift+Print exec {{ ui_dir }}/screenshot.sh region
+bindsym --release Control+Print exec {{ ui_dir }}/screenshot.sh window
+bindsym $mod+Print exec {{ ui_dir }}/screenshot.sh
 
-bindsym --release $mod+Mod1+d exec $base_dir/detect_displays.sh
-bindsym --release $mod+Mod1+c exec $base_dir/detect_displays.sh clone
-bindsym --release $mod+Mod1+s exec $base_dir/detect_displays.sh single
+bindsym --release $mod+Mod1+d exec {{ ui_dir }}/detect_displays.sh
+bindsym --release $mod+Mod1+c exec {{ ui_dir }}/detect_displays.sh clone
+bindsym --release $mod+Mod1+s exec {{ ui_dir }}/detect_displays.sh single
 
 # per-window configuration
 
@@ -294,4 +294,5 @@ assign [class="^Hexchat$"] 3
 assign [class="^Mumble$"] 3
 assign [class="^telegram-desktop$"] 3
 
-exec $base_dir/startup.sh
+exec {{ ui_dir }}/startup.sh
+

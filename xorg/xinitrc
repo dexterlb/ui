@@ -23,7 +23,7 @@ case "$1" in
         zsh ~/.fluxbox/startup &
         exec fluxbox -log /tmp/fluxbox.log;;
     i3)
-        exec i3 -c ~/run/ui/i3/config -V >> /tmp/i3log-$(date +'%F-%k-%M-%S') 2>&1 ;;
+        exec i3 -c ~/run/ui/i3/config.i3 -V >> /tmp/i3log-$(date +'%F-%k-%M-%S') 2>&1 ;;
     *) exit 1 ;;
 esac
 
