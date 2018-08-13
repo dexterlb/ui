@@ -296,3 +296,6 @@ assign [class="^telegram-desktop$"] 3
 
 exec {{ ui_dir }}/startup.sh
 
+{% if i3_version == "sway" %}
+    output "*" background {{ wallpaper }} fill
+{% endif %}
