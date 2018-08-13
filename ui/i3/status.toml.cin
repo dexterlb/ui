@@ -3,7 +3,7 @@ icons = "awesome"
 [theme]
 name = "slick"
 [theme.overrides]
-idle_bg = "#1f4d4280"
+idle_bg = "{{ col_bar_bg }}"
 separator = ''
 
 
