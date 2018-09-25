@@ -205,6 +205,7 @@ nnoremap <leader>gpl :Dispatch! git pull<CR>
 " Session management
 nnoremap <leader>s :ToggleWorkspace<CR>
 let g:workspace_session_disable_on_args = 1
+set ssop=blank,buffers,sesdir,folds,localoptions,tabpages,winpos,winsize
 
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
