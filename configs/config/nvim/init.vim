@@ -9,6 +9,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'iCyMind/NeoSolarized'
 Plug 'dyng/ctrlsf.vim'
+Plug 'thaerkh/vim-workspace'
 
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
@@ -200,6 +201,10 @@ nnoremap <leader>gb :Git branch<Space>
 nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gps :Dispatch! git push<CR>
 nnoremap <leader>gpl :Dispatch! git pull<CR>
+
+" Session management
+nnoremap <leader>s :ToggleWorkspace<CR>
+let g:workspace_session_disable_on_args = 1
 
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
