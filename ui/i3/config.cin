@@ -51,7 +51,7 @@ set $right l
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec st -f "Droid Sans Mono:size=13"
 
 # kill focused window
 bindsym $mod+c kill
