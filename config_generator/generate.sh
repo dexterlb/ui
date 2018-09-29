@@ -41,7 +41,7 @@ function find_vars_and_gen_config {
             )
         done
 
-        if [[ ${vars_scripts[#]} -eq 0 ]]; then
+        if [[ ${#vars_scripts} -eq 0 ]]; then
             gen_config "${1}" "${2}"
         fi
     )
