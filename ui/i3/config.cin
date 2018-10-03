@@ -279,10 +279,13 @@ bindsym $mod+Mod1+n nop send notification_next
 bindsym $mod+Escape exec {{ ui_dir }}/session_menu.sh
 
 bindsym --release Print exec {{ ui_dir }}/screenshot.sh full
-bindsym --release $mod+p exec {{ ui_dir }}/runmenu.sh run
-bindsym --release $mod+Tab exec {{ ui_dir }}/runmenu.sh window
 bindsym --release Shift+Print exec {{ ui_dir }}/screenshot.sh region
 bindsym --release Control+Print exec {{ ui_dir }}/screenshot.sh window
+bindsym --release $mod+Control+y exec {{ ui_dir }}/screenshot.sh window
+bindsym --release $mod+y exec {{ ui_dir }}/screenshot.sh full
+bindsym --release $mod+Shift+y exec {{ ui_dir }}/screenshot.sh region
+bindsym --release $mod+p exec {{ ui_dir }}/runmenu.sh run
+bindsym --release $mod+Tab exec {{ ui_dir }}/runmenu.sh window
 bindsym $mod+Print exec {{ ui_dir }}/screenshot.sh
 
 bindsym --release $mod+Mod1+d exec {{ ui_dir }}/detect_displays.sh
