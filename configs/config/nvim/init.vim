@@ -11,9 +11,7 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'dyng/ctrlsf.vim'
 Plug 'thaerkh/vim-workspace'
 
-Plug 'fatih/vim-go'
-Plug 'rust-lang/rust.vim'
-" Plug 'mattn/emmet-vim/'
+Plug 'sheerun/vim-polyglot'
 
 function! DoRemote(arg)
   UpdateRemotePlugins
