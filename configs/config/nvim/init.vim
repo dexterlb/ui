@@ -138,7 +138,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 noremap <leader>f :Files<cr>
-noremap <leader>g :GFiles<cr>
+noremap <leader>i :GFiles<cr>
 noremap <leader>p :Buffers<cr>
 
 " Airline
