@@ -1,7 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'AndrewRadev/sideways.vim'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'peterhoeg/vim-qml'
 Plug 'vim-airline/vim-airline'
@@ -122,11 +122,24 @@ noremap <leader>ba :1,300 bd!<cr>
 noremap <leader>< :SidewaysLeft<cr>
 noremap <leader>> :SidewaysRight<cr>
 
-" CtrlP
-let g:ctrlp_map = '<leader>t'
-let g:ctrlp_cmd = 'CtrlPMixed'
-noremap <leader>f :CtrlP<cr>
-noremap <leader>p :CtrlPBuffer<cr>
+" CtrlPa
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+noremap <leader>f :Files<cr>
+noremap <leader>g :GFiles<cr>
+noremap <leader>p :Buffers<cr>
 
 " Airline
 
