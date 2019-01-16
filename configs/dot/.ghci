@@ -1,0 +1,7 @@
+-- module imports are annoying
+:set prompt "> "
+
+-- fully qualified module names are annoying
+:set -dsuppress-module-prefixes
+
+:set -XOverloadedStrings
