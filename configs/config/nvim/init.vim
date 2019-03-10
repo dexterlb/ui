@@ -8,6 +8,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'iCyMind/NeoSolarized'
+Plug 'morhetz/gruvbox'
 Plug 'dyng/ctrlsf.vim'
 Plug 'thaerkh/vim-workspace'
 
@@ -50,7 +51,7 @@ noremap <C-right> :bn<cr>
 noremap <C-left> :bp<cr>
 
 " colour schemes
-colorscheme NeoSolarized
+colorscheme gruvbox
 noremap <F5> :set background=dark<cr>
 noremap <F6> :set background=light<cr>
 
