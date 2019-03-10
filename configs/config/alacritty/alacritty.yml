@@ -229,6 +229,9 @@ mouse:
   # To disable this completely, set `faux_scrollback_lines` to 0.
   faux_scrolling_lines: 1
 
+scrolling:
+  history: 0
+
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
 
