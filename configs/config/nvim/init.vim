@@ -1,5 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
+
 Plug 'AndrewRadev/sideways.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -17,9 +18,6 @@ Plug 'sheerun/vim-polyglot'
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
-" Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-" Plug 'zchee/deoplete-go'
-" Plug 'zchee/deoplete-clang'
 
 call plug#end()
 
@@ -54,6 +52,7 @@ noremap <C-left> :bp<cr>
 colorscheme gruvbox
 noremap <F5> :set background=dark<cr>
 noremap <F6> :set background=light<cr>
+set termguicolors
 
 set background=dark
 
@@ -218,13 +217,6 @@ nnoremap <leader>s :ToggleWorkspace<CR>
 let g:workspace_session_disable_on_args = 1
 let g:workspace_autosave = 0
 set ssop=blank,buffers,sesdir,folds,localoptions,tabpages,winpos,winsize
-
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#disable_auto_complete = 1
-inoremap <silent><expr> <C-n>
-\ pumvisible() ? "\<C-n>" :
-\ deoplete#mappings#manual_complete()
 
 set completeopt-=preview
 
