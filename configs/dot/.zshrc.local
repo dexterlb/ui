@@ -1,0 +1,49 @@
+alias 'sc=systemctl'
+alias 'scr=sc reboot'
+alias 'sch=sc poweroff'
+alias 'scs=sc suspend'
+alias 'sce=sc enable'
+alias 'scd=sc disable'
+alias 'sc1=sc start'
+alias 'sc0=sc stop'
+alias 'sc-=sc restart'
+alias 'suspend=scs'
+alias 's=sudo '
+alias 'udm=udevil --mount '
+alias 'udu=udevil --unmount '
+alias 'e=exit'
+alias 'sl=/usr/bin/sl'
+alias 'лс=sl'
+alias 'е=sl'
+alias ':D=sl'
+alias 'wtf=sl -caF'
+alias 'cb=xclip -sel clip'
+alias 'obtain=sudo aura -S '
+alias 'steeve_jobs=jobs '
+alias 'time=\time -f '"'"'\n\nmax mem: %Mk, average mem: %Kk\nkernel time: %S, user time: %U\ntotal time: %E'"'"' '
+alias fuckyou='sch'
+alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+alias hcat='pygmentize '
+alias wifi='s netctl stop-all && s netctl start '
+
+export PYTHONPATH=/home/human/run/media/music/extlyrics
+# PATH="`ruby -e 'print Gem.user_dir'`/bin:$PATH"
+PATH="/home/human/.gem/ruby/2.4.0/bin:$PATH"   # hardcode it because ruby is slow
+# export LOLCOMMITS_ANIMATE=5
+export LOLCOMMITS_FORK=true
+export LOLCOMMITS_STEALTH=true
+
+export VTE_VERSION="100"
+
+plugins=(ssh-agent)
+
+if [[ -f ~/.mpd_data.sh ]]; then
+    . ~/.mpd_data.sh
+fi
+
+source ~/.zsh_ssh_agent
+
+zstyle ':prompt:grml:left:items:user' pre '%F{green}'
+. /usr/share/fzf/key-bindings.zsh
+. /usr/share/fzf/completion.zsh
+export EDITOR=nvim
