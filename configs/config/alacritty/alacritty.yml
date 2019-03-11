@@ -14,6 +14,8 @@ env:
   # `infocmp xterm-256color`.
   TERM: xterm-256color
 
+device_pixel_ratio: 1
+
 window:
   # Window dimensions in character columns and lines
   # Falls back to size specified by window manager if set to 0x0.
