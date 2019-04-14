@@ -34,4 +34,4 @@ parcellite -n &>/dev/null &         # clipboard manager
 systemctl --user stop redshift
 systemctl --user start redshift
 
-compton --no-fading-openclose --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc -D 2 -b -C -G
+compton --no-fading-openclose --paint-on-overlay --glx-no-stencil -b -C -G
