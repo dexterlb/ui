@@ -60,7 +60,7 @@ case "${action}" in
         esac
         ;;
     serve)
-        serve "${filename}"
+        alacritty -e zsh -i -l -c "serve '${filename}' ; sleep 1"
         ;;
     delete)
         rm -f "${filename}"
