@@ -163,7 +163,7 @@ color_schemes:
       cyan:    '0x427b58'
       white:   '0x3c3836'
 
-colors: *gruvbox-dark
+colors: *gruvbox-light
 
 # Visual Bell
 #
