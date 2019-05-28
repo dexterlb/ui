@@ -25,6 +25,7 @@ alias fuckyou='sch'
 alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
 alias hcat='pygmentize '
 alias wifi='s netctl stop-all && s netctl start '
+alias tsync='rsync -rvza --progress --info=progress2 '
 
 export PYTHONPATH=/home/human/run/media/music/extlyrics
 # PATH="`ruby -e 'print Gem.user_dir'`/bin:$PATH"
