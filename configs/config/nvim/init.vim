@@ -1,6 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
-
+Plug 'vim-scripts/Smart-Tabs'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -24,6 +24,9 @@ call plug#end()
 let mapleader=" "
 nnoremap ; :
 noremap F ;
+
+" allow external vimrc
+set exrc
 
 " preserve buffers (don't require saving before switching buffers)
 set hidden
@@ -88,6 +91,8 @@ set cursorline      " highlight some stuff
 set guicursor=
 set colorcolumn=80
 
+" add search highlight
+set hlsearch
 " remove search highlight
 nnoremap <A-/> :noh<CR>
 
@@ -228,3 +233,7 @@ noremap <leader>m :GoMetaLinter<cr>
 
 " Rust
 let g:rustfmt_autosave = 1
+
+function! SteamLocomotive()
+    terminal sl
+endfunction
