@@ -1,6 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'vim-scripts/Smart-Tabs'
+Plug 'roryokane/detectindent'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -160,7 +160,9 @@ fun! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-autocmd FileType * autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+augroup AutoStrip
+" autocmd FileType * autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+augroup END
 
 " ctrlsf settings
 " focus on the ctrlsf window when it's done
