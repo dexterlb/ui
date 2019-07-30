@@ -1,5 +1,5 @@
 call plug#begin('~/.config/nvim/plugged')
-
+Plug 'dpc/vim-smarttabs'
 Plug 'roryokane/detectindent'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'junegunn/fzf.vim'
@@ -16,7 +16,7 @@ Plug 'thaerkh/vim-workspace'
 Plug 'sheerun/vim-polyglot'
 
 function! DoRemote(arg)
-  UpdateRemotePlugins
+    UpdateRemotePlugins
 endfunction
 
 call plug#end()
@@ -59,15 +59,34 @@ set termguicolors
 
 set background=dark
 
+" while checkalign might offer nice functionality, it causes the cursor to go
+" to the end of the line each time when we press enter, so keep it disabled
+let g:ctab_disable_checkalign=1
+
 " tab/indent options
 set tabstop=4
 set shiftwidth=4
-set shiftround		" snap to indent grid
+set shiftround      " snap to indent grid
 set autoindent
 set copyindent
 set smarttab
-set expandtab		" tabs -> spaces
-filetype plugin indent on	" smart indentation based on filetype
+
+" automatic detection using heuristics
+augroup DetectIndent
+    autocmd!
+    autocmd BufReadPost *  DetectIndent
+augroup END
+
+" automatic detection based on filetype
+filetype plugin indent on
+
+" always use spaces by default
+set expandtab       " tabs -> spaces
+
+" don't insert new comments on enter when inside a comment
+augroup NoNewComment
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+augroup END
 
 " show matching braces
 set showmatch
@@ -78,7 +97,7 @@ set ignorecase
 set history=1024
 set undolevels=1024
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.hi
-set title	" change terminal's title
+set title   " change terminal's title
 
 " silence!
 set visualbell
@@ -90,6 +109,9 @@ set nobackup
 set cursorline      " highlight some stuff
 set guicursor=
 set colorcolumn=80
+
+" highlight search on each typed character
+set incsearch
 
 " add search highlight
 set hlsearch
@@ -103,22 +125,22 @@ noremap <leader>cd :cd %:p:h<cr>
 noremap <leader>q :Bclose<cr>
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
 
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
 
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
 
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
 endfunction
 
 " Close all the buffers
@@ -129,19 +151,19 @@ noremap <leader>> :SidewaysRight<cr>
 
 " CtrlPa
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 noremap <leader>f :Files<cr>
 noremap <leader>i :GFiles<cr>
 noremap <leader>p :Buffers<cr>
@@ -161,14 +183,14 @@ fun! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 augroup AutoStrip
-" autocmd FileType * autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+    " autocmd FileType * autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 augroup END
 
 " ctrlsf settings
 " focus on the ctrlsf window when it's done
 let g:ctrlsf_auto_focus = {
-    \ "at" : "done"
-    \ }
+            \ "at" : "done"
+            \ }
 
 " search from project root by default (finds .git)
 " currently trying out current dir, just open vim in project root
