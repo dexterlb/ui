@@ -187,13 +187,13 @@ augroup AutoStrip
 augroup END
 noremap <F3> :call StripTrailingWhitespaces()<CR>
 
-" conceal settings
-set conceallevel=2
-set concealcursor=nv
-highlight Conceal ctermfg=red ctermbg=NONE
-
-" highlight trailing whitespace via conceal
-syn match WhiteSpace "\s\+$" containedin=ALL conceal cchar=◦
+" highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 
 " ctrlsf settings
