@@ -176,15 +176,25 @@ let g:airline_powerline_fonts = 0
 let g:airline_theme = "gruvbox"
 
 " strip trailing whitespace
-fun! <SID>StripTrailingWhitespaces()
+function! StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
     %s/\s\+$//e
     call cursor(l, c)
 endfun
 augroup AutoStrip
-    " autocmd FileType * autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+    " autocmd FileType * autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
 augroup END
+noremap <F3> :call StripTrailingWhitespaces()<CR>
+
+" conceal settings
+set conceallevel=2
+set concealcursor=nv
+highlight Conceal ctermfg=red ctermbg=NONE
+
+" highlight trailing whitespace via conceal
+syn match WhiteSpace "\s\+$" containedin=ALL conceal cchar=◦
+
 
 " ctrlsf settings
 " focus on the ctrlsf window when it's done
