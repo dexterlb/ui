@@ -12,7 +12,7 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     export QT_STYLE_OVERRIDE='gtk2'
     export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
-    # unclutter &             # autohide pointer
+    pkill unclutter ; ( unclutter &>/dev/null ) &   # autohide pointer
     xset b off              # speakerectomy
     xset s off              # no screensaver
     xset s noblank          # no screen blanking
