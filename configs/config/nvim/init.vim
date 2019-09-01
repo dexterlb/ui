@@ -268,6 +268,9 @@ noremap <leader>m :GoMetaLinter<cr>
 " Rust
 let g:rustfmt_autosave = 1
 
+" LFE
+autocmd BufNewFile,BufRead *.lfe set syntax=lisp
+
 function! SteamLocomotive()
     terminal sl
 endfunction
