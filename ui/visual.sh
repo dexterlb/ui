@@ -8,7 +8,7 @@ wallpaper="${image_dir}/machinarium.jpg"
 logo="${image_dir}/logo.png"
 icons_dir="${image_dir}/icons"
 
-rofi_common=(-font 'Droid Sans Mono 12')
+rofi_common=(-font 'Fira Code 12')
 
 panel_height=24
 panel_width="${screen_width}"
