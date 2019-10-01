@@ -12,9 +12,6 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'morhetz/gruvbox'
 Plug 'dyng/ctrlsf.vim'
 Plug 'thaerkh/vim-workspace'
-
-
-
 Plug 'sheerun/vim-polyglot'
 
 function! DoRemote(arg)
@@ -197,6 +194,8 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
+" bulgarian layout
+set langmap=чявертъуиопшщасдфгхйклзьцжбнмЧЯВЕРТЪУИОПШЩАСДФГХЙКЛЗѝЦЖБНМ;`qwertyuiop[]asdfghjklzxcvbnm~QWERTYUIOP{}ASDFGHJKLZXCVBNM
 
 " ctrlsf settings
 " focus on the ctrlsf window when it's done
