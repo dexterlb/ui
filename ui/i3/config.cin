@@ -242,7 +242,9 @@ bar {
       font pango:Fira Code, Font Awesome 12
       position top
       height 20
+{% if i3_version == "i3" %}
       i3bar_command i3bar -t
+{% endif %}
       status_command i3status-rs ~/run/ui/i3/status.toml
       colors {
             separator #666666
