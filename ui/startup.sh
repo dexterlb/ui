@@ -22,7 +22,7 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 
 
     "${cdir}/klayout.sh"    # keyboard layout settings
-    xcape -e 'Caps_Lock=Escape'
+    # xcape -e 'Caps_Lock=Escape'
 } &
 
 {
