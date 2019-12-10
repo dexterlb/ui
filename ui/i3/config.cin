@@ -304,8 +304,10 @@ assign [class="^Hexchat$"] 3
 assign [class="^Mumble$"] 3
 assign [class="^telegram-desktop$"] 3
 
-exec {{ ui_dir }}/startup.sh
 
 {% if i3_version == "sway" %}
     output "*" background {{ wallpaper }} fill
+    exec {{ ui_dir }}/startup_wayland.sh
+{% else %}
+    exec {{ ui_dir }}/startup.sh
 {% endif %}
