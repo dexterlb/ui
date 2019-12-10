@@ -1,5 +1,5 @@
 # load from your bash or zsh profile
-
+cdir="$(dirname "$(readlink -f "${0}")")"
 
 function start_x {
     # get the current TTY. We'll tell X to run on the same TTY to avoid problems.
@@ -27,7 +27,7 @@ function xinteractive {
     echo -en "\n"
 
     if [[ -z "$1" ]]; then
-        echo -n "Enter choice ([i] i3, [f] fluxbox, [r] restart, [h] halt, [c] console): "
+        echo -n "Enter choice ([i] i3, [f] fluxbox, [s] sway, [r] restart, [h] halt, [c] console): "
         read c
     else
         c="$1"
@@ -38,6 +38,7 @@ function xinteractive {
     case $c[1] in
         i) start_x i3 ;;
         f) start_x fluxbox ;;
+        s) "${cdir}"/../ui/start_wayland.sh ;;
 
         r) systemctl reboot ;;
         h) systemctl poweroff ;;
