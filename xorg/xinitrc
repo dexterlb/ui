@@ -14,6 +14,7 @@ cdir="$(dirname "$0")"
 
 xrdb -merge ~/.Xresources
 export QT_QPA_PLATFORMTHEME='gtk3'
+export WINIT_HIDPI_FACTOR=1.0
 
 # . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 # export $(dbus-launch)   # this is a hack. systemd should do it automatically.
@@ -23,7 +24,7 @@ case "$1" in
         zsh ~/.fluxbox/startup &
         exec fluxbox -log /tmp/fluxbox.log;;
     i3)
-        exec i3 -c ~/run/ui/i3/config -V >> /tmp/i3log-$(date +'%F-%k-%M-%S') 2>&1 ;;
+        exec i3 -c ~/run/ui/i3/config.i3 -V >> /tmp/i3log-$(date +'%F-%k-%M-%S') 2>&1 ;;
     *) exit 1 ;;
 esac
 

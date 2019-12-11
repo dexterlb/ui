@@ -13,25 +13,44 @@ cancel" | rofi ${rofi_common[@]} -dmenu -p "screenshot" \
         | read screenshot_type _
 fi
 
-case "${screenshot_type}" in
-    full)
-        option=
-        ;;
-    window)
-        option=-u
-        ;;
-    region)
-        option=-s
-        ;;
-    *)
-        echo "wut?"
-        exit 1
-        ;;
-esac
-
 filename="/tmp/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png"
 
-scrot -d 0.1 ${option} "${filename}"
+if [[ "${DISPLAY_SERVER}" == wayland ]]; then
+    case "${screenshot_type}" in
+        full)
+            grim "${filename}"
+            ;;
+        window)
+            echo "cannot screenshot a window"
+            exit 1
+            ;;
+        region)
+            grim -g "$(slurp)" "${filename}"
+            ;;
+        *)
+            echo "wut?"
+            exit 1
+            ;;
+    esac
+else
+    case "${screenshot_type}" in
+        full)
+            option=
+            ;;
+        window)
+            option=-u
+            ;;
+        region)
+            option=-s
+            ;;
+        *)
+            echo "wut?"
+            exit 1
+            ;;
+    esac
+
+    scrot -d 0.1 ${option} "${filename}"
+fi
 
 echo \
 "leave it be in ${filename}
@@ -48,10 +67,18 @@ case "${action}" in
     copy)
         case "${object}" in
             filename)
-                echo -n "${filename}" | xclip -sel clip
+                if [[ "${DISPLAY_SERVER}" == wayland ]]; then
+                    echo -n "${filename}" | wl-copy
+                else
+                    echo -n "${filename}" | xclip -sel clip
+                fi
                 ;;
             image)
-                cat "${filename}" | xclip -sel clip -t image/png
+                if [[ "${DISPLAY_SERVER}" == wayland ]]; then
+                    cat "${filename}" | wl-copy
+                else
+                    cat "${filename}" | xclip -sel clip -t image/png
+                fi
                 ;;
             *)
                 echo "copy whaaaaat?"
@@ -60,7 +87,7 @@ case "${action}" in
         esac
         ;;
     serve)
-        serve "${filename}"
+        termite -e zsh -i -l -c "serve '${filename}' ; sleep 1"
         ;;
     delete)
         rm -f "${filename}"

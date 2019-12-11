@@ -9,15 +9,12 @@
 # layout, use the i3-config-wizard
 #
 
-set $base_dir ~/run/ui
-set $i3_dir $base_dir/i3
-
 # super key
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Droid Sans Mono 0
+font pango:Fira Code 0
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -31,15 +28,17 @@ font pango:Droid Sans Mono 0
 # font, it doesn’t scale on retina/hidpi displays.
 
 # Colours
-# class                 border  backgr. text    indicator child_border
-client.focused          #467d50 #2b5f37 #ffffff #26a73c   #2b5f37
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
+# class                 border                  backgr.           text              indicator               child_border
+client.focused          {{ col_highlight }}     {{ col_main }}    #ffffff           {{ col_highlight2 }}    {{ col_main }}
+client.focused_inactive {{ col_inactive }}      {{ col_dull }}    #ffffff           {{ col_inactive2 }}     {{ col_dull }}
+client.unfocused        {{ col_inactive }}      {{ col_dead }}    #888888           {{ col_dull2 }}         {{ col_dead }}
+client.urgent           {{ col_urgent_bg }}     {{ col_urgent }}  #ffffff           {{ col_urgent }}        {{ col_urgent }}
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
+gaps inner 4
+gaps outer 4
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -52,7 +51,7 @@ set $right l
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec termite
 
 # kill focused window
 bindsym $mod+c kill
@@ -234,9 +233,29 @@ bindsym $mod+Shift+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-#bar {
-#    status_command i3status
-#}
+
+{% if i3_version == "i3" %}
+    {% set col_bar_bg = col_bar_bg_solid %}
+{% endif %}
+
+bar {
+      font pango:Fira Code, Font Awesome 12
+      position top
+      height 20
+{% if i3_version == "i3" %}
+      i3bar_command i3bar -t
+{% endif %}
+      status_command i3status-rs ~/run/ui/i3/status.toml
+      colors {
+            separator #666666
+            background {{ col_bar_bg }}
+            statusline #dddddd
+            focused_workspace {{ col_bar_bg }} {{ col_bar_bg }} {{ col_highlight_text }}
+            active_workspace {{ col_bar_bg }} {{ col_bar_bg }} {{ col_highlight_text2 }}
+            inactive_workspace {{ col_bar_bg }} {{ col_bar_bg }} {{ col_inactive_text }}
+            urgent_workspace {{ col_urgent }} {{ col_urgent }} {{ col_urgent_text }}
+      }
+}
 
 bindsym $mod+Control+p nop send music_pause
 bindsym Pause nop send music_pause
@@ -259,18 +278,24 @@ bindsym $mod+Shift+plus   exec xbacklight -inc 1
 
 bindsym $mod+Mod1+n nop send notification_next
 
-bindsym $mod+Escape exec $base_dir/session_menu.sh
+bindsym $mod+Escape exec {{ ui_dir }}/session_menu.sh
 
-bindsym --release Print exec $base_dir/screenshot.sh full
-bindsym --release $mod+p exec $base_dir/runmenu.sh run
-bindsym --release $mod+Tab exec $base_dir/runmenu.sh window
-bindsym --release Shift+Print exec $base_dir/screenshot.sh region
-bindsym --release Control+Print exec $base_dir/screenshot.sh window
-bindsym $mod+Print exec $base_dir/screenshot.sh
+bindsym $mod+Control+d exec {{ ui_dir }}/theme_variant.sh dark
+bindsym $mod+Control+l exec {{ ui_dir }}/theme_variant.sh light
 
-bindsym --release $mod+Mod1+d exec $base_dir/detect_displays.sh
-bindsym --release $mod+Mod1+c exec $base_dir/detect_displays.sh clone
-bindsym --release $mod+Mod1+s exec $base_dir/detect_displays.sh single
+bindsym --release Print exec {{ screenshooter }} full
+bindsym --release Shift+Print exec {{ screenshooter }} region
+bindsym --release Control+Print exec {{ screenshooter }} window
+bindsym --release $mod+Control+y exec {{ screenshooter }} window
+bindsym --release $mod+y exec {{ screenshooter }} full
+bindsym --release $mod+Shift+y exec {{ screenshooter }} region
+bindsym --release $mod+p exec {{ ui_dir }}/runmenu.sh run
+bindsym --release $mod+Tab exec {{ ui_dir }}/runmenu.sh window
+bindsym $mod+Print exec {{ screenshooter }}
+
+bindsym --release $mod+Mod1+d exec {{ ui_dir }}/detect_displays.sh
+bindsym --release $mod+Mod1+c exec {{ ui_dir }}/detect_displays.sh clone
+bindsym --release $mod+Mod1+s exec {{ ui_dir }}/detect_displays.sh single
 
 # per-window configuration
 
@@ -282,4 +307,10 @@ assign [class="^Hexchat$"] 3
 assign [class="^Mumble$"] 3
 assign [class="^telegram-desktop$"] 3
 
-exec $base_dir/startup.sh
+
+{% if i3_version == "sway" %}
+    output "*" background {{ wallpaper }} fill
+    exec {{ ui_dir }}/startup_wayland.sh
+{% else %}
+    exec {{ ui_dir }}/startup.sh
+{% endif %}
