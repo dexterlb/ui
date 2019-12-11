@@ -51,7 +51,7 @@ set $right l
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec termite
 
 # kill focused window
 bindsym $mod+c kill
@@ -279,6 +279,9 @@ bindsym $mod+Shift+plus   exec xbacklight -inc 1
 bindsym $mod+Mod1+n nop send notification_next
 
 bindsym $mod+Escape exec {{ ui_dir }}/session_menu.sh
+
+bindsym $mod+Control+d exec {{ ui_dir }}/theme_variant.sh dark
+bindsym $mod+Control+l exec {{ ui_dir }}/theme_variant.sh light
 
 bindsym --release Print exec {{ ui_dir }}/screenshot.sh full
 bindsym --release Shift+Print exec {{ ui_dir }}/screenshot.sh region
