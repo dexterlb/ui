@@ -283,15 +283,15 @@ bindsym $mod+Escape exec {{ ui_dir }}/session_menu.sh
 bindsym $mod+Control+d exec {{ ui_dir }}/theme_variant.sh dark
 bindsym $mod+Control+l exec {{ ui_dir }}/theme_variant.sh light
 
-bindsym --release Print exec {{ ui_dir }}/screenshot.sh full
-bindsym --release Shift+Print exec {{ ui_dir }}/screenshot.sh region
-bindsym --release Control+Print exec {{ ui_dir }}/screenshot.sh window
-bindsym --release $mod+Control+y exec {{ ui_dir }}/screenshot.sh window
-bindsym --release $mod+y exec {{ ui_dir }}/screenshot.sh full
-bindsym --release $mod+Shift+y exec {{ ui_dir }}/screenshot.sh region
+bindsym --release Print exec {{ screenshooter }} full
+bindsym --release Shift+Print exec {{ screenshooter }} region
+bindsym --release Control+Print exec {{ screenshooter }} window
+bindsym --release $mod+Control+y exec {{ screenshooter }} window
+bindsym --release $mod+y exec {{ screenshooter }} full
+bindsym --release $mod+Shift+y exec {{ screenshooter }} region
 bindsym --release $mod+p exec {{ ui_dir }}/runmenu.sh run
 bindsym --release $mod+Tab exec {{ ui_dir }}/runmenu.sh window
-bindsym $mod+Print exec {{ ui_dir }}/screenshot.sh
+bindsym $mod+Print exec {{ screenshooter }}
 
 bindsym --release $mod+Mod1+d exec {{ ui_dir }}/detect_displays.sh
 bindsym --release $mod+Mod1+c exec {{ ui_dir }}/detect_displays.sh clone
