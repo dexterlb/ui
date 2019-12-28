@@ -56,7 +56,7 @@ function xauto {
     fi
     if [[ -z $DISPLAY ]] && [[ $(tty) =~ "/dev/tty[1-9]" ]]; then
         if [[ $(tty) = "/dev/tty1" ]] && [[ ! -f ~/x_noauto ]]; then
-            xinteractive i
+            xinteractive s
         else
             xinteractive
         fi
