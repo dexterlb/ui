@@ -43,10 +43,9 @@ function xinteractive {
         r) systemctl reboot ;;
         h) systemctl poweroff ;;
         c) return ;;
-
-        *) exit ;;
     esac
 
+    exit
 }
 
 # start X if we're on tty1
