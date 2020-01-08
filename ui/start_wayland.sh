@@ -3,7 +3,9 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 . "${cdir}/visual.sh"
 
 export QT_STYLE_OVERRIDE='gtk2'
+export QT_QPA_PLATFORMTHEME="${QT_STYLE_OVERRIDE}"
 export QT_QPA_PLATFORM=wayland-egl
+export MOZ_ENABLE_WAYLAND=1
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 if [[ -z "${1}" || "${1}" == "local" ]]; then
