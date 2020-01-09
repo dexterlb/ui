@@ -313,6 +313,9 @@ assign [class="^telegram-desktop$"] 3
 
 
 {% if i3_version == "sway" %}
+    input 9610:30:HAILUCK_CO.,LTD_USB_KEYBOARD_Touchpad {
+        tap enabled
+    }
     output "*" background {{ wallpaper }} fill
     exec {{ ui_dir }}/startup_wayland.sh
 {% else %}
