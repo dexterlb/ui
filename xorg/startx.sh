@@ -48,6 +48,12 @@ function xinteractive {
     exit
 }
 
+if lsmod | grep -q '^nvidia\s'; then
+    default=i
+else
+    default=s
+fi
+
 # start X if we're on tty1
 function xauto {
     if [[ -n ${1} ]]; then
@@ -55,7 +61,7 @@ function xauto {
     fi
     if [[ -z $DISPLAY ]] && [[ $(tty) =~ "/dev/tty[1-9]" ]]; then
         if [[ $(tty) = "/dev/tty1" ]] && [[ ! -f ~/x_noauto ]]; then
-            xinteractive s
+            xinteractive ${default}
         else
             xinteractive
         fi
