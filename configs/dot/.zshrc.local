@@ -27,7 +27,7 @@ alias hcat='pygmentize '
 alias wifi='s netctl stop-all && s netctl start '
 alias tsync='rsync -rva -zz --progress --info=progress2 '
 
-export PYTHONPATH=/home/human/run/media/music/extlyrics
+export PYTHONPATH=/music/extlyrics
 # PATH="`ruby -e 'print Gem.user_dir'`/bin:$PATH"
 PATH="/home/human/.gem/ruby/2.4.0/bin:$PATH"   # hardcode it because ruby is slow
 # export LOLCOMMITS_ANIMATE=5
