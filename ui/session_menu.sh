@@ -1,19 +1,23 @@
-#!/bin/zsh
+#!/bin/bash
 cdir="$(dirname "$0")"
 . "${cdir}/visual.sh"
 
-res=$(echo -e "lock\nsuspend\nrestart\nhalt\nquit\ncancel" \
-    | rofi ${rofi_common[@]} -dmenu -p "manage session")
+if [[ -n "${1}" ]]; then
+    res="${1}"
+else
+    res=$(echo -e "lock\nsuspend\nrestart\nhalt\nquit\ncancel" \
+        | rofi "${rofi_common[@]}" -dmenu -p "manage session")
+fi
 
 function killx {
     killall i3
 }
 
 function lock {
-    physlock -d
+    physlock -d -m -p "$(echo 'Locked!' | cowsay -f stegosaurus)"
 }
 
-case ${res} in
+case "${res}" in
     'restart')
         systemctl reboot & killx
         exit 0
