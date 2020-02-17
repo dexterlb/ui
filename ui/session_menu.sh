@@ -14,7 +14,7 @@ function killx {
 }
 
 function lock {
-    physlock -d -m -p "$(echo 'Locked!' | cowsay -f stegosaurus)"
+    physlock -m -p "$(echo 'Locked!' | cowsay -f stegosaurus)"
 }
 
 case "${res}" in
