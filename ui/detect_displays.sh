@@ -29,7 +29,7 @@ function configure_redshift {
     old_sum=$(cat config_file | sha256sum)
 
     if [[ "${old_sum}" != "${new_sum}" ]]; then
-        systemctl --user restart redshift
+        "${cdir}"/redshift_control.sh start
     fi
 }
 

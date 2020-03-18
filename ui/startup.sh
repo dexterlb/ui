@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 cdir="$(readlink -f "$(dirname "${0}")")"
 . "${cdir}/visual.sh"
 # . "${cdir}/interfaces.sh"
@@ -30,8 +30,5 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 } &
 
 parcellite -n &>/dev/null &         # clipboard manager
-
-systemctl --user stop redshift
-systemctl --user start redshift
 
 picom --no-fading-openclose --paint-on-overlay --glx-no-stencil -b -C -G

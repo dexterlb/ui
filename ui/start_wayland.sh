@@ -21,11 +21,4 @@ fi
 
 . "${cdir}/klayout.sh" default no_set    # keyboard layout settings
 
-{
-    if which redshift &>/dev/null; then
-        systemctl --user stop redshift
-        systemctl --user start redshift
-    fi
-} &
-
 sway -c "${SWAY_CONFIG}"
