@@ -15,6 +15,7 @@ function killx {
 
 function lock {
     physlock -m -p "$(echo 'Locked!' | cowsay -f stegosaurus)"
+    "${cdir}"/redshift_control.sh start
 }
 
 case "${res}" in

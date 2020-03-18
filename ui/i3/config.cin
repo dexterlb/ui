@@ -249,7 +249,7 @@ bar {
 {% if i3_version == "i3_gaps" %}
       i3bar_command i3bar -t
 {% endif %}
-      status_command i3status-rs ~/run/ui/i3/status.toml
+      status_command i3status-rs {{ ui_dir }}/i3/status.toml
       colors {
             separator #666666
             background {{ col_bar_bg }}
@@ -272,8 +272,8 @@ bindsym --release --whole-window $mod+Control+button5 nop send music_volume -1
 bindsym --release --whole-window $mod+Control+button4 nop send music_volume +1
 bindsym $mod+Control+period nop send music_home
 
-bindsym $mod+Mod1+r exec systemctl --user start redshift
-bindsym $mod+Mod1+b exec systemctl --user stop redshift
+bindsym $mod+Mod1+r exec {{ ui_dir }}/redshift_control.sh start
+bindsym $mod+Mod1+b exec {{ ui_dir }}/redshift_control.sh stop
 
 bindsym $mod+Mod1+minus   exec xbacklight -dec 4
 bindsym $mod+Mod1+plus    exec xbacklight -inc 4
