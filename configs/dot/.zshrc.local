@@ -27,6 +27,21 @@ alias hcat='pygmentize '
 alias wifi='s netctl stop-all && s netctl start '
 alias tsync='rsync -rva -zz --progress --info=progress2 '
 
+# tmux config
+function tm {
+    tmux new-session -A -s "${@}"
+}
+
+function __tmux-sessions() {
+    local expl
+    local -a sessions
+    sessions=( ${${(f)"$(command tmux list-sessions 2>/dev/null)"}/:[ $'\t']##/:} )
+    _describe -t sessions 'sessions' sessions "$@"
+}
+compdef __tmux-sessions tm
+alias tml='tmux list-sessions'
+alias tma='tmux attach'
+
 export PYTHONPATH=/music/extlyrics
 # PATH="`ruby -e 'print Gem.user_dir'`/bin:$PATH"
 PATH="/home/human/.gem/ruby/2.4.0/bin:$PATH"   # hardcode it because ruby is slow
