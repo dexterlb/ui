@@ -13,6 +13,7 @@ Plug 'morhetz/gruvbox'
 Plug 'dyng/ctrlsf.vim'
 Plug 'thaerkh/vim-workspace'
 Plug 'sheerun/vim-polyglot'
+Plug 'mattn/vim-goimports'
 
 function! DoRemote(arg)
     UpdateRemotePlugins
@@ -262,6 +263,7 @@ set completeopt-=preview
 
 " Language specific settings:
 " Golang
+let g:goimports = 1
 let g:go_fmt_command = "goimports"
 
 noremap <leader>m :GoMetaLinter<cr>
