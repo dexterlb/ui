@@ -1,4 +1,5 @@
-#!/bin/zsh
+#!/bin/bash
+shopt -s nullglob
 cdir="$(readlink -f "$(dirname "${0}")")"
 . "${cdir}/visual.sh"
 
@@ -19,14 +20,14 @@ function lid_open {
 function configure_redshift {
     config_file=~/.config/redshift.conf
 
-    old_sum=$(cat config_file | sha256sum)
+    old_sum=$(cat "${config_file}" | sha256sum)
 
     if lid_open; then
         cp -rvf "${cdir}"/redshift_laptop.conf "${config_file}"
     else
         cp -rvf "${cdir}"/redshift_monitor.conf "${config_file}"
     fi
-    old_sum=$(cat config_file | sha256sum)
+    old_sum=$(cat "${config_file}" | sha256sum)
 
     if [[ "${old_sum}" != "${new_sum}" ]]; then
         "${cdir}"/redshift_control.sh start
@@ -90,10 +91,10 @@ function set_displays {
 
 get_displays | prioritise_displays | sort_displays | set_displays single | sponge | set_displays "${@}" > /dev/null
 
-xrasengan -tral
+# xrasengan -tral
 
 "${cdir}/set_wallpaper.sh"
 "${cdir}/klayout.sh"        # often a display comes with a keyboard
-xcalib "${cdir}/colour_profile.icc"
+# xcalib "${cdir}/colour_profile.icc"
 
 configure_redshift

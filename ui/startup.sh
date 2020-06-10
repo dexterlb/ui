@@ -31,4 +31,4 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 
 parcellite -n &>/dev/null &         # clipboard manager
 
-picom --no-fading-openclose --paint-on-overlay --glx-no-stencil -b -C -G
+picom --no-fading-openclose --glx-no-stencil -b -C -G
