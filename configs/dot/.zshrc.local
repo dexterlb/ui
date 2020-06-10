@@ -60,6 +60,10 @@ fi
 source ~/.zsh_ssh_agent
 
 zstyle ':prompt:grml:left:items:user' pre '%F{green}'
-. /usr/share/fzf/key-bindings.zsh
-. /usr/share/fzf/completion.zsh
+
+if [[ -d /usr/share/fzf ]]; then
+    . /usr/share/fzf/key-bindings.zsh
+    . /usr/share/fzf/completion.zsh
+fi
+
 export EDITOR=nvim
