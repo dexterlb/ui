@@ -1,6 +1,9 @@
-#!/bin/zsh
-cdir="$(dirname "$0")"
+#!/bin/bash
+
+cdir="$(readlink -f "$(dirname "$0")")"
 . "${cdir}/visual.sh"
+
+set -eou pipefail
 
 if [[ -n "${1}" ]]; then
     screenshot_type="${1}"
@@ -9,7 +12,7 @@ else
 "full screenshot
 window screenshot
 region screenshot
-cancel" | rofi ${rofi_common[@]} -dmenu -p "screenshot" \
+cancel" | rofi "${rofi_common[@]}" -dmenu -p "screenshot" \
         | read screenshot_type _
 fi
 
@@ -37,10 +40,7 @@ else
         full)
             option=
             ;;
-        window)
-            option=-u
-            ;;
-        region)
+        window|region)
             option=-s
             ;;
         *)
@@ -49,17 +49,18 @@ else
             ;;
     esac
 
-    scrot -d 0.1 ${option} "${filename}"
+    maim -s -u -d 0.1 ${option} "${filename}"
 fi
 
-echo \
+read action object _ \
+    < <(
+    echo \
 "leave it be in ${filename}
 copy filename to clipboard
 copy image to clipboard
 serve it
 delete it
-cancel" | rofi ${rofi_common[@]} -dmenu -p "what to do with the screenshot" \
-        | read action object _
+cancel" | rofi "${rofi_common[@]}" -dmenu -p "what to do with the screenshot")
 
 case "${action}" in
     leave)
@@ -87,7 +88,7 @@ case "${action}" in
         esac
         ;;
     serve)
-        termite -e zsh -i -l -c "serve '${filename}' ; sleep 1"
+        termite -e "bash -i -c '${cdir}/../serve.sh '${filename}' ; sleep 1'"
         ;;
     delete)
         rm -f "${filename}"
