@@ -36,7 +36,7 @@ case "${res}" in
         exit 0
         ;;
     'lock')
-        lock
+        "${cdir}"/lock_x.sh &
         exit 0
         ;;
     *)
