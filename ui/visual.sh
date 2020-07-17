@@ -1,5 +1,5 @@
 #!/bin/zsh
-cdir="$(readlink -f "$(dirname "$0")")"
+cdir="$(dirname "$(readlink -f "$0")")"
 
 image_dir="${cdir}/images"
 generated_dir="${cdir}/images/generated"

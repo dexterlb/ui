@@ -1,5 +1,5 @@
 #!/bin/bash
-cdir="$(dirname "$0")"
+cdir="$(dirname "$(readlink -f "$0")")"
 . "${cdir}/visual.sh"
 
 revert() {
