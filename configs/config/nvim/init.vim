@@ -265,6 +265,7 @@ set completeopt-=preview
 " Golang
 let g:goimports = 1
 let g:go_fmt_command = "goimports"
+let g:goimports_simplify = 1
 
 noremap <leader>m :GoMetaLinter<cr>
 

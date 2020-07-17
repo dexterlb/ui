@@ -42,12 +42,6 @@ compdef __tmux-sessions tm
 alias tml='tmux list-sessions'
 alias tma='tmux attach'
 
-export PYTHONPATH=/music/extlyrics
-# PATH="`ruby -e 'print Gem.user_dir'`/bin:$PATH"
-PATH="/home/human/.gem/ruby/2.4.0/bin:$PATH"   # hardcode it because ruby is slow
-# export LOLCOMMITS_ANIMATE=5
-export LOLCOMMITS_FORK=true
-export LOLCOMMITS_STEALTH=true
 
 export VTE_VERSION="100"
 
@@ -67,3 +61,8 @@ if [[ -d /usr/share/fzf ]]; then
 fi
 
 export EDITOR=nvim
+
+if [[ -d ~/go ]]; then
+    export PATH="$HOME/go/bin:${PATH}"
+fi
+export PYTHONPATH=/music/extlyrics
