@@ -35,4 +35,5 @@ picom --no-fading-openclose --glx-no-stencil \
     -b -C -G \
     --shadow-exclude 'bounding_shaped || !bounding_shaped' \
     --fade-exclude 'bounding_shaped || !bounding_shaped' \
-    --glx-no-stencil --vsync
+    --focus-exclude 'bounding_shaped || !bounding_shaped' \
+    --glx-no-stencil --vsync -o 0
