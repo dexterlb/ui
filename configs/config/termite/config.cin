@@ -1,5 +1,5 @@
 [options]
-font = Fira Code 12
+font = Droid Sans Mono 11
 
 {% if theme == "light" %}
 [colors]
