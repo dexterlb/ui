@@ -5,7 +5,7 @@ image_dir="${cdir}/images"
 generated_dir="${cdir}/images/generated"
 
 wallpaper="${image_dir}/machinarium.jpg"
-lock_image="${image_dir}/stars.png"
+lock_image="${image_dir}/stars_wide.png"
 logo="${image_dir}/logo.png"
 icons_dir="${image_dir}/icons"
 
