@@ -25,9 +25,9 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     # xcape -e 'Caps_Lock=Escape'
 } &
 
-# {
-#     "${cdir}/detect_displays.sh"
-# } &
+{
+    "${cdir}/detect_displays.sh"
+} &
 
 parcellite -n &>/dev/null &         # clipboard manager
 
