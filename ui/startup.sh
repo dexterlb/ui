@@ -32,9 +32,12 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 
 parcellite -n &>/dev/null &         # clipboard manager
 
-picom --no-fading-openclose --glx-no-stencil \
-    -b -C -G \
-    --shadow-exclude 'bounding_shaped || !bounding_shaped' \
-    --fade-exclude 'bounding_shaped || !bounding_shaped' \
-    --focus-exclude 'bounding_shaped || !bounding_shaped' \
+picom_opts=(--no-fading-openclose --glx-no-stencil
+    -b -C -G
+    --shadow-exclude 'bounding_shaped || !bounding_shaped'
+    --fade-exclude 'bounding_shaped || !bounding_shaped'
+    --focus-exclude 'bounding_shaped || !bounding_shaped'
     --glx-no-stencil --vsync -o 0 -m 1
+)
+
+picom "${picom_opts[@]}" || picom "${picom_opts[@]}" --no-vsync
