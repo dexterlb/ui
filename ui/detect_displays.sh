@@ -71,9 +71,9 @@ function set_displays {
                 elif [[ "${1}" == "single" ]]; then
                     command="${command} --off"
                 else
-                    # the primary monitor is on the right, and the rest are
-                    # sorted by priority going left
-                    command="${command} --left-of ${previous} --auto"
+                    # the primary monitor is on the left, and the rest are
+                    # sorted by priority going right
+                    command="${command} --right-of ${previous} --auto"
                 fi
             else
                 command="${command} --primary --auto"

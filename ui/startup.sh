@@ -26,6 +26,7 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 } &
 
 {
+    sleep 0.2
     "${cdir}/detect_displays.sh"
 } &
 
