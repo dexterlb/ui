@@ -6,10 +6,19 @@ name = "slick"
 idle_bg = "{{ col_bar_bg }}"
 separator = ''
 
-
 [[block]]
 block = "focused_window"
 max_width = 120
+
+[[block]]
+block = "music"
+marquee = false
+smart_trim = true
+hide_when_empty = true
+buttons = ['prev', 'play', 'next']
+max_width = 30
+dynamic_width = true
+format = '{artist} - {title}'
 
 [[block]]
 block = "cpu"
@@ -18,13 +27,17 @@ interval = 1
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = "{Mup}%"
-format_swap = "{SUp}%"
+format_mem = "{mem_used_percents}"
+format_swap = "{swap_used_percents}"
 
 [[block]]
 block = "load"
 interval = 1
 format = "{1m}"
+
+[[block]]
+block = "net"
+format = "{speed_up} {speed_down}"
 
 [[block]]
 block = "time"
