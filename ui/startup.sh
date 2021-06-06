@@ -40,4 +40,6 @@ picom_opts=(--no-fading-openclose --glx-no-stencil
     --glx-no-stencil --vsync -o 0 -m 1
 )
 
+/usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+
 picom "${picom_opts[@]}" || picom "${picom_opts[@]}" --no-vsync
