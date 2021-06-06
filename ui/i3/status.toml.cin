@@ -35,9 +35,9 @@ block = "load"
 interval = 1
 format = "{1m}"
 
-[[block]]
-block = "net"
-format = "{speed_up} {speed_down}"
+# [[block]]
+# block = "net"
+# format = "{speed_up} {speed_down}"
 
 [[block]]
 block = "time"
