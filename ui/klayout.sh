@@ -1,13 +1,11 @@
 #!/bin/zsh
 export XKB_DEFAULT_LAYOUT="us,bg"
 export XKB_DEFAULT_OPTIONS="grp:sclk_toggle,grp:rctrl_toggle,grp_led:scroll,compose:ralt"
+
 if [[ "$1" == "dvorak" ]]; then
     export XKB_DEFAULT_VARIANT="dvorak,dvorak_phonetic"
-    setxkbmap \
-        -layout "us,bg" \
-        -variant "dvorak,dvorak_phonetic" \
-        -option "XkbOptions" \
-            "grp:sclk_toggle,grp:rctrl_toggle,grp_led:scroll,compose:ralt" ${@:2}
+elif [[ "$1" == "bds" ]]; then
+    export XKB_DEFAULT_VARIANT=","
 else
     export XKB_DEFAULT_VARIANT=",phonetic"
 fi
