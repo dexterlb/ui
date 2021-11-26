@@ -21,6 +21,19 @@ dynamic_width = true
 format = '{artist} - {title}'
 
 [[block]]
+block = "custom"
+command = '''
+    {{ ui_dir }}/mic_mute.sh all_muted && \
+    echo '{"icon":"microphone_muted", "text": "mic off"}' \
+    || \
+    echo '{"icon":"microphone_full","state":"Critical", "text": "mic on!"}'
+    '''
+json = true
+on_click = '''{{ ui_dir }}/mic_mute.sh restrictive_toggle ; pkill -SIGRTMIN+4 i3status'''
+signal = 4
+interval = 5
+
+[[block]]
 block = "cpu"
 interval = 1
 

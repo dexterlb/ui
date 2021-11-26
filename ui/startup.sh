@@ -23,6 +23,7 @@ cdir="$(readlink -f "$(dirname "${0}")")"
 
     "${cdir}/klayout.sh"    # keyboard layout settings
     # xcape -e 'Caps_Lock=Escape'
+    "${cdir}"/mic_mute.sh mute_all
 } &
 
 {
