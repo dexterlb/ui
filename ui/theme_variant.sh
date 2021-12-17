@@ -7,5 +7,4 @@ if [[ -z "${1}" ]]; then
 fi
 
 export TERMINAL_THEME="${1}"
-"${cdir}"/../config_generator/generate.sh "${cdir}"/../configs/config/termite
-pkill -USR1 termite
+"${cdir}"/../config_generator/generate.sh "${cdir}"/../configs/config/alacritty
