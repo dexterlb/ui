@@ -88,7 +88,7 @@ case "${action}" in
         esac
         ;;
     serve)
-        termite -e "bash -i -c '${cdir}/../serve.sh '${filename}' ; sleep 1'"
+        alacritty -e "bash -i -c '${cdir}/../serve.sh '${filename}' ; sleep 1'"
         ;;
     delete)
         rm -f "${filename}"
