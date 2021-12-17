@@ -33,6 +33,7 @@ on_click = '''{{ ui_dir }}/mic_mute.sh restrictive_toggle ; pkill -SIGRTMIN+4 i3
 signal = 4
 interval = 5
 
+{% if num_batteries != '0' %}
 [[block]]
 block = "battery"
 driver = "upower"
@@ -41,6 +42,7 @@ interval = 10
 format = "{percentage}"
 allow_missing = true
 hide_missing = true
+{% endif %}
 
 [[block]]
 block = "cpu"
