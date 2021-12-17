@@ -80,7 +80,11 @@ font:
     style: Italic
 
   # Point size of the font
+  {% if hostname == "kessel" %}
+  size: 13
+  {% else %}
   size: 11
+  {% endif %}
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
