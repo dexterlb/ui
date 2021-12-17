@@ -332,7 +332,8 @@ bindsym --release $mod+Mod1+c exec {{ ui_dir }}/detect_displays.sh clone
 bindsym --release $mod+Mod1+s exec {{ ui_dir }}/detect_displays.sh single
 
 # bind scroll lock key to mute/unmute mic when not used in combination
-bindcode --release 78 exec "{{ ui_dir }}/mic_mute.sh restrictive_toggle; pkill -SIGRTMIN+4 i3status"
+bindcode --release 78     exec "{{ ui_dir }}/mic_mute.sh restrictive_toggle; pkill -SIGRTMIN+4 i3status"
+bindsym  --release $mod+m exec "{{ ui_dir }}/mic_mute.sh restrictive_toggle; pkill -SIGRTMIN+4 i3status"
 
 # per-window configuration
 
