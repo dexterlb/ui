@@ -7,7 +7,7 @@ locker="${cdir}/lock_x.sh"
 
 # Delay in seconds. Note that by default systemd-logind allows a maximum sleep
 # delay of 5 seconds.
-sleep_delay=1
+sleep_delay=3
 
 # Run before starting the locker
 pre_lock() {
@@ -28,6 +28,7 @@ pre_lock
 trap 'kill %%' TERM INT
 
 if [[ -e /dev/fd/${XSS_SLEEP_LOCK_FD:--1} ]]; then
+    export SUSPENDING=1
     # lock fd is open, make sure the locker does not inherit a copy
     $locker {XSS_SLEEP_LOCK_FD}<&- &
 
