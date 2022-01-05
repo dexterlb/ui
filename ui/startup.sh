@@ -18,7 +18,9 @@ cdir="$(readlink -f "$(dirname "${0}")")"
     xset s noblank          # no screen blanking
     xset -dpms              # no power saving
     # xset m 3/1 0            # mouse acceleration and speed
-    xhost local:boinc       # allow boinc user to use GPU
+
+    # subscribe to "lock screen" events
+    pkill xss-lock ; ( xss-lock -- "${cdir}/lock_x_with_fd.sh" ) &
 
 
     "${cdir}/klayout.sh"    # keyboard layout settings
