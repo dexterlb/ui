@@ -13,11 +13,16 @@ function die {
     exit 1
 }
 
+function get_sources {
+    pactl list short sources \
+        | grep -v -F .monitor \
+        | awk '{ print $1 }'
+}
+
 # mutes all connected mics
 function mute_all {
     msg 'muting all sources'
-    pactl list short sources \
-        | awk '{ print $1 }' \
+    get_sources \
         | xargs -I@ pactl set-source-mute '@' 1
 }
 
@@ -29,8 +34,7 @@ function unmute_default {
 
 # checks if all mics are muted
 function all_muted {
-    pactl list short sources \
-        | awk '{ print $1 }' \
+    get_sources \
         | xargs -I@ pactl get-source-mute '@' \
         | grep -q 'no$' \
         || return 0
