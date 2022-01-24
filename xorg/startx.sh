@@ -48,7 +48,9 @@ function xinteractive {
     exit
 }
 
-if lsmod | grep -q '^nvidia\s'; then
+if [[ -n "${auto_wm}" ]]; then
+    default="${auto_wm}"
+elif lsmod | grep -q '^nvidia\s'; then
     default=i
 else
     default=s
