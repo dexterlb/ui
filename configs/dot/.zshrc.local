@@ -61,11 +61,13 @@ fi
 
 if which exa &> /dev/null; then
     alias 'l=exa -l '
-    alias 'll=exa -l '
+    alias 'll=exa -la '
+    alias 'la=exa -la '
     alias 'lh=exa -l '
 else
     alias 'l=ls -lh '
-    alias 'll=ls -lh '
+    alias 'll=ls -lhA '
+    alias 'la=ls -lhA '
     alias 'lh=ls -lh '
 fi
 
