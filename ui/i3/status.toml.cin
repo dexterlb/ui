@@ -41,7 +41,6 @@ device = "DisplayDevice"
 interval = 10
 format = "{percentage}"
 allow_missing = true
-hide_missing = true
 {% endif %}
 
 [[block]]
