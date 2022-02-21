@@ -83,7 +83,7 @@ font:
     style: Italic
 
   # Point size of the font
-  {% if hostname == "kessel" %}
+  {% if hostname in ("kessel", "hoth") %}
   size: 13
   {% else %}
   size: 11
