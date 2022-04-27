@@ -14,7 +14,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'thaerkh/vim-workspace'
 Plug 'sheerun/vim-polyglot'
 Plug 'mattn/vim-goimports'
-Plug 'noahfrederick/vim-noctu'
+Plug 'dexterlb/vim-dim'
 
 function! DoRemote(arg)
     UpdateRemotePlugins
@@ -61,8 +61,8 @@ noremap <C-left> :bp<cr>
 " set background=dark
 
 " instead of the above, use a terminal-agnostic colour scheme:
-colorscheme noctu
-let g:airline_theme = "cool"
+colorscheme dim
+let g:airline_theme = "gruvbox"
 
 " while checkalign might offer nice functionality, it causes the cursor to go
 " to the end of the line each time when we press enter, so keep it disabled
@@ -108,12 +108,12 @@ set title   " change terminal's title
 set visualbell
 set noerrorbells
 
-" who uses backups anymore?!
+" who uses backups nowadays?!
 set nobackup
 
 set cursorline      " highlight some stuff
 set guicursor=
-set colorcolumn=80
+" set colorcolumn=80
 
 " highlight search on each typed character
 set incsearch
@@ -155,20 +155,21 @@ noremap <leader>< :SidewaysLeft<cr>
 noremap <leader>> :SidewaysRight<cr>
 
 " CtrlPa
-let g:fzf_colors =
-            \ { 'fg':      ['fg', 'Normal'],
-            \ 'bg':      ['bg', 'Normal'],
-            \ 'hl':      ['fg', 'Comment'],
-            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-            \ 'hl+':     ['fg', 'Statement'],
-            \ 'info':    ['fg', 'PreProc'],
-            \ 'border':  ['fg', 'Ignore'],
-            \ 'prompt':  ['fg', 'Conditional'],
-            \ 'pointer': ['fg', 'Exception'],
-            \ 'marker':  ['fg', 'Keyword'],
-            \ 'spinner': ['fg', 'Label'],
-            \ 'header':  ['fg', 'Comment'] }
+" let g:fzf_colors =
+"             \ { 'fg':      ['fg', 'Normal'],
+"             \ 'bg':      ['bg', 'Normal'],
+"             \ 'hl':      ['fg', 'Comment'],
+"             \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+"             \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+"             \ 'hl+':     ['fg', 'Statement'],
+"             \ 'info':    ['fg', 'PreProc'],
+"             \ 'border':  ['fg', 'Ignore'],
+"             \ 'prompt':  ['fg', 'Conditional'],
+"             \ 'pointer': ['fg', 'Exception'],
+"             \ 'marker':  ['fg', 'Keyword'],
+"             \ 'spinner': ['fg', 'Label'],
+"             \ 'header':  ['fg', 'Comment'] }
+" these come from the vim-dim colour scheme
 noremap <leader>f :Files<cr>
 noremap <leader>i :GFiles<cr>
 noremap <leader>p :Buffers<cr>
