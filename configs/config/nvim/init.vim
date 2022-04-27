@@ -14,6 +14,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'thaerkh/vim-workspace'
 Plug 'sheerun/vim-polyglot'
 Plug 'mattn/vim-goimports'
+Plug 'noahfrederick/vim-noctu'
 
 function! DoRemote(arg)
     UpdateRemotePlugins
@@ -52,12 +53,16 @@ noremap <C-right> :bn<cr>
 noremap <C-left> :bp<cr>
 
 " colour schemes
-colorscheme gruvbox
-noremap <F5> :set background=dark<cr>
-noremap <F6> :set background=light<cr>
-set termguicolors
+" colorscheme gruvbox
+" noremap <F5> :set background=dark<cr>
+" noremap <F6> :set background=light<cr>
+" set termguicolors
+" let g:airline_theme = "gruvbox"
+" set background=dark
 
-set background=dark
+" instead of the above, use a terminal-agnostic colour scheme:
+colorscheme noctu
+let g:airline_theme = "cool"
 
 " while checkalign might offer nice functionality, it causes the cursor to go
 " to the end of the line each time when we press enter, so keep it disabled
@@ -173,7 +178,6 @@ noremap <leader>p :Buffers<cr>
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_powerline_fonts = 0
-let g:airline_theme = "gruvbox"
 
 " strip trailing whitespace
 function! StripTrailingWhitespaces()
