@@ -12,7 +12,7 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'morhetz/gruvbox'
 Plug 'dyng/ctrlsf.vim'
 Plug 'thaerkh/vim-workspace'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'mattn/vim-goimports'
 Plug 'dexterlb/vim-dim'
 
@@ -73,7 +73,9 @@ set tabstop=4
 set shiftwidth=4
 set shiftround      " snap to indent grid
 set autoindent
-set copyindent
+set copyindent      " makes autoindent just copy leading whitespace from prev line
+set nosmartindent
+set nocindent
 set smarttab
 
 " automatic detection using heuristics
@@ -82,8 +84,10 @@ augroup DetectIndent
     autocmd BufReadPost *  DetectIndent
 augroup END
 
-" automatic detection based on filetype
-filetype plugin indent on
+" no auto indent based on filetype
+filetype indent off
+" load the filetype plugin
+filetype plugin on
 
 " always use spaces by default
 set expandtab       " tabs -> spaces
