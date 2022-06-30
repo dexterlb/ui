@@ -8,17 +8,14 @@ separator = ''
 
 [[block]]
 block = "focused_window"
-max_width = 120
+format = '$title.str(120)'
 
 [[block]]
 block = "music"
-marquee = false
-smart_trim = true
 hide_when_empty = true
-buttons = ['prev', 'play', 'next']
-max_width = 30
-dynamic_width = true
-format = '{artist} - {title}'
+# buttons = ['prev', 'play', 'next']
+format = '$prev $play $next $artist.str(10) - $title.str(10)'
+# dynamic_width = true
 
 [[block]]
 block = "custom"
@@ -29,9 +26,11 @@ command = '''
     echo '{"icon":"microphone_full","state":"Critical", "text": "mic on!"}'
     '''
 json = true
-on_click = '''{{ ui_dir }}/mic_mute.sh restrictive_toggle ; pkill -SIGRTMIN+4 i3status'''
 signal = 4
 interval = 5
+[[block.click]]
+button = 'left'
+cmd = '''{{ ui_dir }}/mic_mute.sh restrictive_toggle ; pkill -SIGRTMIN+4 i3status'''
 
 {% if num_batteries != '0' %}
 [[block]]
@@ -40,8 +39,9 @@ driver = "upower"
 device = "DisplayDevice"
 interval = 10
 format = "{percentage}"
-allow_missing = true
+hide_missing = true
 {% endif %}
+
 
 [[block]]
 block = "cpu"
@@ -50,8 +50,8 @@ interval = 1
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = "{mem_used_percents}"
-format_swap = "{swap_used_percents}"
+format_mem = "$mem_total_used_percents.eng(2)"
+format_swap = "$swap_used_percents.eng(2)"
 
 [[block]]
 block = "load"
