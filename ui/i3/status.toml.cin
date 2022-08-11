@@ -1,7 +1,8 @@
+[icons]
 icons = "awesome"
 
 [theme]
-name = "slick"
+theme = "slick"
 [theme.overrides]
 idle_bg = "{{ col_bar_bg }}"
 separator = ''
@@ -38,7 +39,7 @@ block = "battery"
 driver = "upower"
 device = "DisplayDevice"
 interval = 10
-format = "{percentage}"
+format = "$percentage"
 hide_missing = true
 {% endif %}
 
