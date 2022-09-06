@@ -32,8 +32,8 @@ verbose = 1
 
 [last.fm]
 url = http://post.audioscrobbler.com/
-username = dexter_lb
-password = i~1czhGad470i9g4l4~ta7
+username = {{ secret_lastfm_user }}
+password = {{ secret_lastfm_pass }}
 # The file where mpdscribble should store its Last.fm journal in case
 # you do not have a connection to the Last.fm server.
 journal = ~/.cache/lastfm.journal
