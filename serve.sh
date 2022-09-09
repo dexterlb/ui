@@ -2,7 +2,7 @@
 
 server='naboo.qtrp.org'
 remote_path='/srv/http/rnd'
-webroot='http://rnd.qtrp.org'
+webroot='https://rnd.qtrp.org'
 
 if [[ -n "${2}" ]]; then
     filename="${2}"
