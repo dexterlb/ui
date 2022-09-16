@@ -1,0 +1,11 @@
+[submission]
+token = "{{ secret_listenbrainz_key }}"
+
+genres_as_folksonomy = true
+#genre_separator = ";"
+
+api_url = "https://api.listenbrainz.org"
+
+[mpd]
+#address = "localhost:6600"
+#password = ""
