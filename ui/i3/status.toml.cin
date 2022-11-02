@@ -9,14 +9,15 @@ separator = ''
 
 [[block]]
 block = "focused_window"
-format = '$title.str(120)'
+format = "$title.str(0,80) |"
 
-[[block]]
-block = "music"
-hide_when_empty = true
-# buttons = ['prev', 'play', 'next']
-format = '$prev $play $next $artist.str(10) - $title.str(10)'
-# dynamic_width = true
+# [[block]]
+# block = "music"
+# hide_when_empty = true
+# # buttons = ['prev', 'play', 'next']
+# # format = '$prev $play $next $artist.str(10) - $title.str(10)'
+# format = '$avail $artist'
+# # dynamic_width = true
 
 [[block]]
 block = "custom"
@@ -51,13 +52,13 @@ interval = 1
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = "$mem_total_used_percents.eng(2)"
-format_swap = "$swap_used_percents.eng(2)"
+format_mem = "$icon $mem_total_used_percents.eng(2) "
+format_swap = "$icon $swap_used_percents.eng(2) "
 
 [[block]]
 block = "load"
+format = " $icon $1m.eng(3) $5m.eng(3) $15m.eng(3) "
 interval = 1
-format = "{1m}"
 
 # [[block]]
 # block = "net"
@@ -65,5 +66,5 @@ format = "{1m}"
 
 [[block]]
 block = "time"
-interval = 60
-format = "%a %d/%m %R"
+interval = 20
+format = " $icon %a %Y-%m-%d %R "
