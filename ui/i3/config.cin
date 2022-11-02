@@ -337,13 +337,13 @@ bindsym  --release $mod+m exec "{{ ui_dir }}/mic_mute.sh restrictive_toggle; pki
 
 # per-window configuration
 
-assign [class="^Steam$"] 6
-assign [class="^dota2$"] 6
-assign [class="^explorer\.exe$"] 6
-assign [class="^Firefox$"] 2
-assign [class="^Hexchat$"] 3
-assign [class="^Mumble$"] 3
-assign [class="^telegram-desktop$"] 3
+# assign [class="^Steam$"] 6
+# assign [class="^dota2$"] 6
+# assign [class="^explorer\.exe$"] 6
+# assign [class="^Firefox$"] 2
+# assign [class="^Hexchat$"] 3
+# assign [class="^Mumble$"] 3
+# assign [class="^telegram-desktop$"] 3
 
 
 {% if i3_version == "sway" %}
