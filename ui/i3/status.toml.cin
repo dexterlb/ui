@@ -40,8 +40,10 @@ block = "battery"
 driver = "upower"
 device = "DisplayDevice"
 interval = 10
-format = "$percentage"
-hide_missing = true
+format = " $icon $percentage "
+full_format = " $icon full "
+empty_format = " $icon empty "
+missing_format = " $icon gone "
 {% endif %}
 
 
@@ -51,9 +53,7 @@ interval = 1
 
 [[block]]
 block = "memory"
-display_type = "memory"
-format_mem = "$icon $mem_total_used_percents.eng(2) "
-format_swap = "$icon $swap_used_percents.eng(2) "
+format = " $icon $mem_used.eng(2,B,M)/$mem_total.eng(2,B,M) ($mem_used_percents.eng(2)) "
 
 [[block]]
 block = "load"
