@@ -66,19 +66,19 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Droid Sans Mono
+    family: DroidSansMono Nerd Font Mono
     # Style can be specified to pick a specific face.
     style: Regular
 
   # The bold font face
   bold:
-    family: Droid Sans Mono # should be "Menlo" or something on macOS.
+    family: Droid Sans Mono
     # Style can be specified to pick a specific face.
     style: Medium
 
   # The italic font face
   italic:
-    family: Droid Sans Mono # should be "Menlo" or something on macOS.
+    family: Droid Sans Mono
     # Style can be specified to pick a specific face.
     style: Italic
 
