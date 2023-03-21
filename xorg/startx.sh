@@ -53,7 +53,9 @@ if [[ -n "${auto_wm}" ]]; then
 elif lsmod | grep -q '^nvidia\s'; then
     default=i
 else
-    default=s
+    default=i
+    # wayland is still not ready for me ;(
+    # default=s
 fi
 
 # start X if we're on tty1
