@@ -25,7 +25,7 @@ command = '''
     {{ ui_dir }}/mic_mute.sh all_muted && \
     echo '{"icon":"microphone_muted", "text": "mic off"}' \
     || \
-    echo '{"icon":"microphone_full","state":"Critical", "text": "mic on!"}'
+    echo '{"icon":"microphone","state":"Critical", "text": "mic on!"}'
     '''
 json = true
 signal = 4
