@@ -76,4 +76,5 @@ export EDITOR=nvim
 if [[ -d ~/go ]]; then
     export PATH="$HOME/go/bin:${PATH}"
 fi
-export PYTHONPATH=/music/extlyrics
+
+# export PYTHONPATH=/music/extlyrics
