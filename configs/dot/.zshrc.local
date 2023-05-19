@@ -59,6 +59,10 @@ if [[ -d /usr/share/fzf ]]; then
     . /usr/share/fzf/completion.zsh
 fi
 
+if which atuin &> /dev/null; then
+    eval "$(atuin init zsh)"
+fi
+
 if which exa &> /dev/null; then
     alias 'l=exa -l '
     alias 'll=exa -la '
