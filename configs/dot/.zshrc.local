@@ -67,7 +67,8 @@ if [[ -d /usr/share/fzf ]]; then
 fi
 
 if which atuin &> /dev/null; then
-    eval "$(atuin init zsh)"
+    # dirty fix for atuin's filter_mode_shell_up_keybinding config not working
+    eval "$(atuin init zsh | sed -r 's/(--shell-up-key-binding)/\1 --filter-mode session/g')"
 fi
 
 if which exa &> /dev/null; then
