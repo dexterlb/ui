@@ -41,6 +41,13 @@ compdef __tmux-sessions tm
 alias tml='tmux list-sessions'
 alias tma='tmux attach'
 
+compdefas () {
+  if (($+_comps[$1])); then
+    compdef $_comps[$1] ${^@[2,-1]}=$1
+  fi
+}
+compdefas git gti
+
 
 export VTE_VERSION="100"
 
