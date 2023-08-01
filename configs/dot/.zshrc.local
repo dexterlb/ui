@@ -31,6 +31,10 @@ function tm {
     tmux new-session -A -s "${@}"
 }
 
+function tm-remote {
+    mosh "${1}" -- tmux new-session -A -s "${@:2}"
+}
+
 function __tmux-sessions() {
     local expl
     local -a sessions
