@@ -284,6 +284,7 @@ let g:rustfmt_autosave = 1
 
 " LFE
 autocmd BufNewFile,BufRead *.lfe set syntax=lisp
+autocmd BufNewFile,BufRead *.l set syntax=lisp
 
 function! SteamLocomotive()
     terminal sl
