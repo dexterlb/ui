@@ -14,6 +14,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'thaerkh/vim-workspace'
 Plug 'luochen1990/rainbow'
 Plug 'mattn/vim-goimports'
+Plug 'sdiehl/vim-ormolu'
 Plug 'dexterlb/vim-dim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
