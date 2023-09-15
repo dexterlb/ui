@@ -75,7 +75,12 @@ if which atuin &> /dev/null; then
     eval "$(atuin init zsh | sed -r 's/(--shell-up-key-binding)/\1 --filter-mode session/g')"
 fi
 
-if which exa &> /dev/null; then
+if which eza &> /dev/null; then
+    alias 'l=eza -l '
+    alias 'll=eza -la '
+    alias 'la=eza -la '
+    alias 'lh=eza -l '
+elif which exa &> /dev/null; then
     alias 'l=exa -l '
     alias 'll=exa -la '
     alias 'la=exa -la '
