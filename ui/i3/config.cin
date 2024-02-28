@@ -18,9 +18,9 @@ set $mod Mod4
 
 set $hostname {{ hostname }}
 
+# outputs
 {% if hostname == "gallifrey" %}
 
-# outputs
 workspace 1    output DisplayPort-0
 workspace 2    output DisplayPort-0
 workspace 3    output DisplayPort-0
@@ -43,6 +43,31 @@ workspace f9   output DisplayPort-1
 workspace f10  output DisplayPort-1
 workspace f11  output DisplayPort-1
 workspace f12  output DisplayPort-1
+
+{% elif hostname == "kessel" %}
+
+workspace 1    output eDP-1
+workspace 2    output eDP-1
+workspace 3    output eDP-1
+workspace 4    output eDP-1
+workspace 5    output eDP-1
+workspace 6    output eDP-1
+workspace 7    output eDP-1
+workspace 8    output eDP-1
+workspace 9    output eDP-1
+workspace 10   output eDP-1
+workspace f1   output HDMI-2
+workspace f2   output HDMI-2
+workspace f3   output HDMI-2
+workspace f4   output HDMI-2
+workspace f5   output HDMI-2
+workspace f6   output HDMI-2
+workspace f7   output HDMI-2
+workspace f8   output HDMI-2
+workspace f9   output HDMI-2
+workspace f10  output HDMI-2
+workspace f11  output HDMI-2
+workspace f12  output HDMI-2
 
 {% endif %}
 
