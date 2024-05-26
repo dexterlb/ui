@@ -1,0 +1,14 @@
+[user]
+	email = dexterlb@qtrp.org
+	name = dexterlb
+[pull]
+	rebase = false
+
+[sendemail]
+	smtpserver = mx.kmail.bg
+	smtpuser = angel@qtrp.org
+	smtpencryption = ssl
+	smtpserverport = 465
+
+[alias]
+	lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
