@@ -73,3 +73,6 @@ filter_mode_shell_up_keybinding = "session"
 #   "^secret-cmd",
 #   "^innocuous-cmd .*--secret=.+"
 # ]
+
+[sync]
+records = true
