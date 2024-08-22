@@ -15,6 +15,9 @@ Plug 'thaerkh/vim-workspace'
 Plug 'luochen1990/rainbow'
 Plug 'mattn/vim-goimports'
 Plug 'dexterlb/vim-dim'
+Plug 'neovimhaskell/nvim-hs.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'isovector/cornelis'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 function! DoRemote(arg)
@@ -279,6 +282,31 @@ let g:go_fmt_command = "goimports"
 let g:goimports_simplify = 1
 
 noremap <leader>m :GoMetaLinter<cr>
+
+" Agda
+let g:cornelis_use_global_binary = 1
+autocmd FileType agda call AgdaFiletype()
+function! AgdaFiletype()
+    nnoremap <buffer> <leader>l :CornelisLoad<CR>
+    nnoremap <buffer> <leader>m :CornelisQuestionToMeta<CR>
+    nnoremap <buffer> <leader>r :CornelisRefine<CR>
+    nnoremap <buffer> <leader>c :CornelisMakeCase<CR>
+    nnoremap <buffer> <leader>, :CornelisTypeContext<CR>
+    nnoremap <buffer> <leader><leader>, :CornelisTypeContext Normalised<CR>
+    nnoremap <buffer> <leader>d :CornelisTypeInfer<CR>
+    nnoremap <buffer> <leader><leader>d :CornelisTypeInfer Normalised<CR>
+    nnoremap <buffer> <leader>. :CornelisTypeContextInfer<CR>
+    nnoremap <buffer> <leader><leader>. :CornelisTypeContextInfer Normalised<CR>
+    nnoremap <buffer> <leader>g :CornelisGive<CR>
+
+    nnoremap <buffer> <leader>n :CornelisSolve<CR>
+    nnoremap <buffer> <leader>a :CornelisAuto<CR>
+    nnoremap <buffer> <leader>h :CornelisGoToDefinition<CR>
+    nnoremap <buffer> <leader>[ :CornelisPrevGoal<CR>
+    nnoremap <buffer> <leader>] :CornelisNextGoal<CR>
+    nnoremap <buffer> <C-A>     :CornelisInc<CR>
+    nnoremap <buffer> <C-X>     :CornelisDec<CR>
+endfunction
 
 " Rust
 let g:rustfmt_autosave = 1
