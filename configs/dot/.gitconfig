@@ -12,3 +12,4 @@
 
 [alias]
 	lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	mbdiff = "!f() { if [[ $# -eq 0 ]]; then branch=master; else branch=$1; fi; git diff $(git merge-base --fork-point $branch); }; f"
