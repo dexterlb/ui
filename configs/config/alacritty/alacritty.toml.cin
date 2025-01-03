@@ -22,19 +22,19 @@ size = 11
 {% endif %}
 
 [font.bold]
-family = "Droid Sans Mono"
-style = "Medium"
+family = "Aptos Mono"
+style = "Regular"   # fuck the bold
 
 [font.glyph_offset]
 x = 0
 y = 0
 
 [font.italic]
-family = "Droid Sans Mono"
+family = "Aptos Mono"
 style = "Italic"
 
 [font.normal]
-family = "DroidSansM Nerd Font Mono"
+family = "Aptos Mono"
 style = "Regular"
 
 [font.offset]
