@@ -3,7 +3,7 @@
 	name = dexterlb
 
 [pull]
-	rebase = false
+	ff = "only"
 
 [merge]
 	ff = false
