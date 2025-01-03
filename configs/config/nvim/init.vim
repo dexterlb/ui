@@ -18,7 +18,6 @@ Plug 'dexterlb/vim-dim'
 Plug 'neovimhaskell/nvim-hs.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'isovector/cornelis'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 function! DoRemote(arg)
     UpdateRemotePlugins
@@ -281,8 +280,6 @@ let g:goimports = 1
 let g:go_fmt_command = "goimports"
 let g:goimports_simplify = 1
 
-noremap <leader>m :GoMetaLinter<cr>
-
 " Agda
 let g:cornelis_use_global_binary = 1
 autocmd FileType agda call AgdaFiletype()
@@ -314,35 +311,8 @@ let g:rustfmt_autosave = 1
 " LFE
 autocmd BufNewFile,BufRead *.lfe set syntax=lisp
 autocmd BufNewFile,BufRead *.l set syntax=lisp
-let g:rainbow_active = 1
+" let g:rainbow_active = 1
 
 function! SteamLocomotive()
     terminal sl
 endfunction
-
-lua << ENDLUA
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
-
-  indent = {
-    enable = true,
-  },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  -- List of parsers to ignore installing (for "all")
-  ignore_install = { },
-
-  highlight = {
-    enable = true,
-    disable = { },
-    additional_vim_regex_highlighting = false,
-  },
-}
-ENDLUA
