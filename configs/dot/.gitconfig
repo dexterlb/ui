@@ -1,8 +1,15 @@
 [user]
 	email = dexterlb@qtrp.org
 	name = dexterlb
+
 [pull]
 	rebase = false
+
+[merge]
+	ff = false
+
+[commit]
+	verbose = true
 
 [sendemail]
 	smtpserver = mx.kmail.bg
