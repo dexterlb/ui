@@ -52,6 +52,9 @@ compdefas () {
 }
 compdefas git gti
 
+function fork {
+    ( "${@}" ) &>/dev/null &
+}
 
 export VTE_VERSION="100"
 
