@@ -4,20 +4,14 @@ Plug 'roryokane/detectindent'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'junegunn/fzf.vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'peterhoeg/vim-qml'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-fugitive'
-Plug 'iCyMind/NeoSolarized'
-Plug 'morhetz/gruvbox'
 Plug 'dyng/ctrlsf.vim'
-Plug 'thaerkh/vim-workspace'
 Plug 'luochen1990/rainbow'
-Plug 'mattn/vim-goimports'
 Plug 'dexterlb/vim-dim'
-Plug 'neovimhaskell/nvim-hs.vim'
-Plug 'kana/vim-textobj-user'
+
+" language-specific
 Plug 'isovector/cornelis'
+Plug 'mattn/vim-goimports'
+Plug 'neovimhaskell/nvim-hs.vim'
 
 function! DoRemote(arg)
     UpdateRemotePlugins
@@ -25,7 +19,6 @@ endfunction
 
 call plug#end()
 
-let g:gruvbox_termcolors=16
 let mapleader=" "
 nnoremap ; :
 noremap F ;
@@ -56,17 +49,7 @@ noremap <C-k> :bp<cr>
 noremap <C-right> :bn<cr>
 noremap <C-left> :bp<cr>
 
-" colour schemes
-" colorscheme gruvbox
-" noremap <F5> :set background=dark<cr>
-" noremap <F6> :set background=light<cr>
-" set termguicolors
-" let g:airline_theme = "gruvbox"
-" set background=dark
-
-" instead of the above, use a terminal-agnostic colour scheme:
 colorscheme dim
-let g:airline_theme = "gruvbox"
 
 " while checkalign might offer nice functionality, it causes the cursor to go
 " to the end of the line each time when we press enter, so keep it disabled
@@ -162,31 +145,13 @@ noremap <leader>ba :1,300 bd!<cr>
 noremap <leader>< :SidewaysLeft<cr>
 noremap <leader>> :SidewaysRight<cr>
 
-" CtrlPa
-" let g:fzf_colors =
-"             \ { 'fg':      ['fg', 'Normal'],
-"             \ 'bg':      ['bg', 'Normal'],
-"             \ 'hl':      ['fg', 'Comment'],
-"             \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-"             \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-"             \ 'hl+':     ['fg', 'Statement'],
-"             \ 'info':    ['fg', 'PreProc'],
-"             \ 'border':  ['fg', 'Ignore'],
-"             \ 'prompt':  ['fg', 'Conditional'],
-"             \ 'pointer': ['fg', 'Exception'],
-"             \ 'marker':  ['fg', 'Keyword'],
-"             \ 'spinner': ['fg', 'Label'],
-"             \ 'header':  ['fg', 'Comment'] }
 " these come from the vim-dim colour scheme
 noremap <leader>f :Files<cr>
 noremap <leader>i :GFiles<cr>
 noremap <leader>p :Buffers<cr>
 
-" Airline
-
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_powerline_fonts = 0
+" status line
+set laststatus=0
 
 " strip trailing whitespace
 function! StripTrailingWhitespaces()
@@ -249,29 +214,6 @@ let g:ctrlsf_position = 'right'
 nmap <space>o <Plug>CtrlSFCwordExec
 vmap <space>o <Plug>CtrlSFVwordExec
 
-" fugitive git bindings
-nnoremap <leader>ga :Git add %:p<CR><CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit -v -q<CR>
-nnoremap <leader>gca :Gcommit -v -a -q<CR>
-nnoremap <leader>gt :Gcommit -v -q %:p<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>ge :Gedit<CR>
-nnoremap <leader>gr :Gread<CR>
-nnoremap <leader>gw :Gwrite<CR><CR>
-nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
-nnoremap <leader>gp :Ggrep<Space>
-nnoremap <leader>gb :Git branch<Space>
-nnoremap <leader>go :Git checkout<Space>
-nnoremap <leader>gps :Dispatch! git push<CR>
-nnoremap <leader>gpl :Dispatch! git pull<CR>
-
-" Session management
-nnoremap <leader>s :ToggleWorkspace<CR>
-let g:workspace_session_disable_on_args = 1
-let g:workspace_autosave = 0
-set ssop=blank,buffers,sesdir,folds,localoptions,tabpages,winpos,winsize
-
 set completeopt-=preview
 
 " Language specific settings:
@@ -304,9 +246,6 @@ function! AgdaFiletype()
     nnoremap <buffer> <C-A>     :CornelisInc<CR>
     nnoremap <buffer> <C-X>     :CornelisDec<CR>
 endfunction
-
-" Rust
-let g:rustfmt_autosave = 1
 
 " LFE
 autocmd BufNewFile,BufRead *.lfe set syntax=lisp
