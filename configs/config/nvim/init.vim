@@ -1,4 +1,5 @@
 call plug#begin('~/.config/nvim/plugged')
+Plug 'https://git.sr.ht/~sotirisp/vim-tsv'
 Plug 'dpc/vim-smarttabs'
 Plug 'roryokane/detectindent'
 Plug 'AndrewRadev/sideways.vim'
