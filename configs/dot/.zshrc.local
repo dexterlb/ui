@@ -70,7 +70,13 @@ zstyle ':prompt:grml:left:items:user' pre '%F{green}'
 
 if [[ -d /usr/share/fzf ]]; then
     . /usr/share/fzf/key-bindings.zsh
-    . /usr/share/fzf/completion.zsh
+    if [[ -f /usr/share/fzf/completion.zsh ]]; then
+        . /usr/share/fzf/completion.zsh
+    elif [[ -f /usr/share/doc/fzf/examples/completion.zsh ]]; then
+        . /usr/share/doc/fzf/examples/completion.zsh
+    else
+        echo "no zsh completion available for fzf" >&2
+    fi
 fi
 
 if which atuin &> /dev/null; then
