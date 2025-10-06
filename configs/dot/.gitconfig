@@ -22,3 +22,4 @@
 	mbdiff = "!f() { if [[ $# -eq 0 ]]; then branch=master; else branch=$1; fi; git diff $(git merge-base --fork-point $branch); }; f"
 	fap = "!f() { \\\n  git fetch && \\\n  if ! git diff --quiet || ! git diff --cached --quiet; then \\\n    echo \"cowardly refusing to fap when workdir is dirty\" >&2; exit 1; \\\n  fi && \\\n  git reset --hard @{u}; \\\n}; f"
 	hard-fap = "!f() { \\\n  git fetch && git reset --hard @{u}; \\\n}; f"
+	octo = "!/home/human/run/ui/util_scripts/octo.sh"
