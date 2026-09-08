@@ -32,7 +32,7 @@ function tm {
 }
 
 function tm-remote {
-    mosh "${1}" -- tmux new-session -A -s "${@:2}"
+    mosh "${1}" -- env -u __ETC_PROFILE_NIX_SOURCED tmux new-session -A -s "${@:2}"
 }
 
 function __tmux-sessions() {
