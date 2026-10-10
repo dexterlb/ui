@@ -53,18 +53,20 @@ function restrictive_toggle {
     fi
 }
 
-# blocks forever and prints 'muted' when all mics are muted and 'unmuted' otherwise
+# blocks forever, printing a JSON status line whenever the mute state changes
 function monitor {
     (
         echo start
-        pactl subscribe | "${cdir}"/util_scripts/throttle.sh 0.5s
+        pactl subscribe \
+            | grep --line-buffered -E ' on (source|server) ' \
+            | "${cdir}"/util_scripts/throttle.sh 0.5s
     ) | while read -d $'\n' line; do
         if all_muted; then
-            echo off
+            echo '{"icon":"microphone_muted", "text": "mic off"}'
         else
-            echo on
+            echo '{"icon":"microphone", "state":"Critical", "text": "mic on!"}'
         fi
-    done | uniq
+    done | stdbuf -oL uniq
 }
 
 case "${1}" in

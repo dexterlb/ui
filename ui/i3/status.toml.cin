@@ -22,18 +22,12 @@ separator = ''
 
 [[block]]
 block = "custom"
-command = '''
-    {{ ui_dir }}/mic_mute.sh all_muted && \
-    echo '{"icon":"microphone_muted", "text": "mic off"}' \
-    || \
-    echo '{"icon":"microphone","state":"Critical", "text": "mic on!"}'
-    '''
+command = "{{ ui_dir }}/mic_mute.sh monitor"
 json = true
-signal = 4
-interval = 5
+persistent = true
 [[block.click]]
 button = 'left'
-cmd = '''{{ ui_dir }}/mic_mute.sh restrictive_toggle ; pkill -SIGRTMIN+4 i3status'''
+cmd = "{{ ui_dir }}/mic_mute.sh restrictive_toggle"
 
 {% if num_batteries != '0' %}
 [[block]]
